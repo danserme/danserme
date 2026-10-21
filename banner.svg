@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="220" viewBox="0 0 900 220" role="img" aria-label="Polina Bobrova, HCI Researcher and Design Engineer">
+  <style>
+    .name { font: 600 46px ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #f4f2ee; letter-spacing: -1px; }
+    .role { font: 500 15px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #8b5cf6; letter-spacing: 2px; }
+    .line { font: 400 17px ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #9a97a3; }
+    .orb { animation: drift 9s ease-in-out infinite alternate; transform-origin: 760px 110px; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(-18px,10px) scale(1.08); } }
+    @media (prefers-reduced-motion: reduce) { .orb { animation: none; } }
+  </style>
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="900" height="220" rx="18" fill="#0b0b0f"/>
+  <circle class="orb" cx="760" cy="110" r="150" fill="url(#g)"/>
+  <text x="48" y="72" class="role">HCI RESEARCHER · DESIGN ENGINEER · PHD</text>
+  <text x="46" y="128" class="name">Polina Bobrova</text>
+  <text x="48" y="168" class="line">Research-informed products, from live AI to phygital hardware and Web3 health data.</text>
+</svg>
