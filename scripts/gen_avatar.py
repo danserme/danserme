@@ -1,162 +1,257 @@
-# Regenerates avatar.svg and avatar-light.svg: line drawing of Polina switching
-# between a laptop and a breadboard.
+# Regenerates avatar.svg and avatar-light.svg: pixel-art Polina switching between
+# a laptop and a breadboard.
 #   python3 scripts/gen_avatar.py .
+#
+# The image is a 100x40 pixel grid scaled up 6x. A static layer holds the
+# character; each moving part is a small layer with its own frames, shown
+# and hidden on a 12 s timeline of 60 slots (0.2 s each).
 import sys
+from collections import OrderedDict
 
-T = 12  # seconds per loop
+GW, GH, SCALE = 100, 40, 6
+SLOTS, T = 60, 12.0
 
 THEMES = {
-    "dark":  dict(bg="#0b0b0f", ink="#ebe8f0", muted="#5c5868", accent="#a78bfa", hair="#6b4c2c", strand="#8a6a44"),
-    "light": dict(bg="#f6f4f0", ink="#1b1824", muted="#b9b3c4", accent="#7c3aed", hair="#6b4c2c", strand="#8a6a44"),
+    "dark":  dict(bg="#0b0b0f", desk="#16141c", deskline="#2a2733", bubble="#ebe8f0", bubtext="#0b0b0f"),
+    "light": dict(bg="#f6f4f0", desk="#e9e4dc", deskline="#d6d0c6", bubble="#1b1824", bubtext="#f6f4f0"),
 }
+P = dict(
+    skin="#f1c7a6", skin2="#dca784", hair="#6e4f2e", hair2="#55391f", hair3="#8c6a42",
+    glass="#1b1824", shirt="#7c5cd6", shirt2="#6446bd", phones="#2a2733", pad="#a78bfa",
+    lid="#c9c4d4", lid2="#9d97aa", logo="#a78bfa", board="#efeadf", hole="#b9b2a4", chip="#23202b",
+    leg="#9a97a3", red="#ef4444", yel="#facc15", grn="#22c55e", wire_r="#ef4444", wire_b="#3b82f6",
+    grip="#a78bfa", metal="#b9b2a4", spark="#facc15", smoke="#8a8696", cable="#5c5868",
+)
+
+def rect(px, x0, y0, x1, y1, col):
+    for y in range(y0, y1 + 1):
+        for x in range(x0, x1 + 1):
+            px[(x, y)] = col
+
+def poly(px, pts, col):
+    """Connected pixel line through the given points (Bresenham)."""
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        dx, dy = abs(x1 - x0), -abs(y1 - y0)
+        sx, sy = (1 if x0 < x1 else -1), (1 if y0 < y1 else -1)
+        err = dx + dy
+        while True:
+            px[(x0, y0)] = col
+            if (x0, y0) == (x1, y1): break
+            e2 = 2 * err
+            if e2 >= dy: err += dy; x0 += sx
+            if e2 <= dx: err += dx; y0 += sy
+
+def line(px, pts, col):
+    for x, y in pts:
+        px[(x, y)] = col
+
+# ---------------------------------------------------------------- static layer
+def character():
+    px = {}
+    # long hair behind everything: centre part, falls past the shoulders
+    for y in range(6, 30):
+        w = 9 if y > 8 else (8 if y > 6 else 6)
+        wave = (0, 0, 1, 1, 0, 0, -1, -1)[y % 8] if y > 16 else 0
+        rect(px, 50 - w + wave, y, 49 + w + wave, y, "hair")
+    rect(px, 44, 5, 55, 5, "hair")
+    # face (forehead visible: no bangs)
+    for y, (a, b) in {9: (46, 53), 10: (45, 54), 18: (46, 53), 19: (47, 52)}.items():
+        rect(px, a, y, b, y, "skin")
+    rect(px, 45, 11, 54, 17, "skin")
+    # hair framing the face down from a centre part
+    line(px, [(49, 5), (50, 5), (49, 6), (50, 6)], "hair2")
+    rect(px, 44, 6, 48, 7, "hair"); rect(px, 51, 6, 55, 7, "hair")
+    line(px, [(45, 8), (44, 9), (44, 10), (55, 10), (55, 9), (54, 8), (46, 8), (53, 8)], "hair")
+    line(px, [(47, 6), (46, 7), (52, 6), (53, 7)], "hair3")
+    # glasses: two small rectangles + bridge
+    for x0 in (44, 51):
+        rect(px, x0, 12, x0 + 4, 12, "glass"); rect(px, x0, 14, x0 + 4, 14, "glass")
+        px[(x0, 13)] = "glass"; px[(x0 + 4, 13)] = "glass"
+    line(px, [(49, 12), (50, 12)], "glass")
+    line(px, [(49, 15)], "skin2")
+    line(px, [(48, 16), (49, 17), (50, 17), (51, 16)], "glass")
+    rect(px, 48, 20, 51, 21, "skin2")
+    # shirt
+    rect(px, 44, 22, 55, 22, "shirt"); rect(px, 41, 23, 58, 23, "shirt")
+    rect(px, 40, 24, 59, 24, "shirt"); rect(px, 39, 25, 60, 33, "shirt")
+    line(px, [(48, 22), (49, 23), (50, 23), (51, 22), (49, 22), (50, 22)], "skin2")
+    line(px, [(43, 27), (43, 28), (43, 29), (56, 27), (56, 28), (56, 29)], "shirt2")
+    # hair over the shoulders, wavy ends
+    for y in range(20, 31):
+        wave = (0, 1, 1, 0, -1, -1)[y % 6]
+        rect(px, 41 + wave, y, 44 + wave, y, "hair"); rect(px, 55 - wave, y, 58 - wave, y, "hair")
+
+    # headphones resting around the neck
+    line(px, [(44, 21), (45, 22), (46, 23), (47, 23), (48, 24), (49, 24), (50, 24), (51, 24),
+              (52, 23), (53, 23), (54, 22), (55, 21)], "phones")
+    rect(px, 42, 19, 44, 22, "phones"); rect(px, 55, 19, 57, 22, "phones")
+    line(px, [(43, 20), (43, 21), (56, 20), (56, 21)], "pad")
+    return px
+
+# ------------------------------------------------------------- dynamic layers
+def eyes(closed):
+    px = {}
+    if not closed:
+        line(px, [(46, 13), (53, 13)], "glass")
+    return px
+
+def laptop(lid_h, dx=0):
+    px = {}
+    rect(px, 36 + dx, 33, 63 + dx, 33, "lid2")
+    if lid_h:
+        top = 33 - lid_h
+        rect(px, 38 + dx, top, 61 + dx, 32, "lid")
+        rect(px, 38 + dx, 32, 61 + dx, 32, "lid2")
+        if lid_h >= 8:
+            rect(px, 49 + dx, top + 4, 50 + dx, top + 5, "logo")
+    return px
+
+def hands(up):
+    px = {}
+    rect(px, 34, 31 - up, 37, 32 - up, "skin"); rect(px, 62, 31 - (1 - up), 65, 32 - (1 - up), "skin")
+    return px
+
+def board(dx=0, leds=(1, 1, 1)):
+    px = {}
+    rect(px, 37 + dx, 29, 62 + dx, 33, "board")
+    for x in range(38, 62, 2):
+        px[(x + dx, 30)] = "hole"; px[(x + dx, 32)] = "hole"
+    rect(px, 46 + dx, 30, 53 + dx, 32, "chip")
+    for x in (47, 49, 51):
+        px[(x + dx, 29)] = "leg"
+    line(px, [(39 + dx, 28), (40 + dx, 27), (41 + dx, 27), (42 + dx, 28)], "wire_r")
+    line(px, [(55 + dx, 28), (56 + dx, 27), (58 + dx, 27), (59 + dx, 28)], "wire_b")
+    for (x, col), on in zip(((40, "red"), (44, "yel"), (60, "grn")), leds):
+        px[(x + dx, 28)] = "leg"
+        if on:
+            px[(x + dx, 27)] = col; px[(x + dx, 26)] = col
+            px[(x - 1 + dx, 26)] = col; px[(x + 1 + dx, 26)] = col
+        else:
+            px[(x + dx, 27)] = "leg"
+    return px
+
+def iron(shift):
+    px = {}
+    s = shift
+    # forearm from the shoulder up to the hand
+    for i in range(4):                       # sleeve from the shoulder up to the hand
+        for d in (0, 1, 2):
+            px[(60 + i, 31 - i + d + s * (i > 2))] = "shirt"
+    for i in range(7):                       # grip: 2px thick diagonal
+        px[(64 + i, 25 - i + s)] = "grip"; px[(65 + i, 25 - i + s)] = "grip"
+    rect(px, 63, 24 + s, 66, 27 + s, "skin")  # hand over the grip
+    for i in range(5):                       # metal shaft down to the tip
+        px[(62 - i, 27 + i // 2 + s)] = "metal"
+    poly(px, [(71, 19 + s), (74, 18), (76, 19), (77, 21), (78, 24), (79, 28), (80, 31), (81, 33)], "cable")
+    return px
+
+def spark(on):
+    px = {}
+    if on:
+        line(px, [(56, 29), (55, 31), (57, 28), (54, 30)], "spark")
+    return px
+
+def smoke(k):
+    return {(57 + (k % 2), 26 - k * 2): "smoke", (58 - (k % 2), 25 - k * 2): "smoke"}
+
+FONT = {
+    "c": ["...", "...", ".##", "#..", "#..", ".##"],
+    "i": ["#", ".", "#", "#", "#", "#"],
+    "a": ["....", "....", ".##.", "#.#.", "#.#.", ".###"],
+    "o": ["...", "...", ".#.", "#.#", "#.#", ".#."],
+}
+def bubble():
+    px = {}
+    rect(px, 60, 3, 77, 10, "bubble")
+    for x, y in ((60, 3), (77, 3), (60, 10), (77, 10)):
+        px.pop((x, y))
+    line(px, [(60, 11), (59, 12)], "bubble")
+    x = 62
+    for ch in "ciao":
+        g = FONT[ch]
+        for yy, row in enumerate(g):
+            for xx, v in enumerate(row):
+                if v == "#":
+                    px[(x + xx, 4 + yy)] = "bubtext"
+        x += len(g[0]) + 1
+    return px
+
+# ------------------------------------------------------------------- timeline
+def scene(slot):
+    """Return {layer_name: pixels} visible in this slot."""
+    L = {}
+    L["eyes"] = eyes(slot in (9, 10, 33, 34, 47))
+    if slot < 24 or slot == 59:
+        L["laptop"] = laptop(10); L["hands"] = hands(slot % 2)
+    elif slot == 24: L["laptop"] = laptop(6)
+    elif slot == 25: L["laptop"] = laptop(2)
+    elif slot == 26: L["laptop"] = laptop(0)
+    elif slot == 27: L["laptop"] = laptop(0, -8)
+    elif slot == 28: L["laptop"] = laptop(0, -18)
+    elif slot == 29: L["board"] = board(16, (0, 0, 0))
+    elif slot == 30: L["board"] = board(7, (0, 0, 0))
+    elif 31 <= slot <= 53:
+        k = (slot - 31) // 2 % 3
+        L["board"] = board(0, tuple(int(i == k) for i in range(3)))
+        L["iron"] = iron((slot // 3) % 2)
+        L["spark"] = spark(slot % 2 == 0)
+        L["smoke"] = smoke((slot - 31) % 4)
+    elif slot == 54: L["board"] = board(7, (0, 0, 0))
+    elif slot == 55: L["board"] = board(16, (0, 0, 0))
+    elif slot == 56: L["laptop"] = laptop(0, -18)
+    elif slot == 57: L["laptop"] = laptop(0, -8)
+    elif slot == 58: L["laptop"] = laptop(5)
+    if slot <= 11:
+        L["bubble"] = bubble()
+    return L
+
+# -------------------------------------------------------------------- render
+def runs(px, colors):
+    """Merge horizontal runs of the same colour into rects."""
+    out, rows = [], {}
+    for (x, y), col in px.items():
+        if 0 <= x < GW and 0 <= y < GH:
+            rows.setdefault(y, {})[x] = col
+    for y in sorted(rows):
+        xs = sorted(rows[y]); i = 0
+        while i < len(xs):
+            x0, col = xs[i], rows[y][xs[i]]; j = i
+            while j + 1 < len(xs) and xs[j + 1] == xs[j] + 1 and rows[y][xs[j + 1]] == col:
+                j += 1
+            out.append(f'<rect x="{x0}" y="{y}" width="{xs[j] - x0 + 1}" height="1" fill="{colors[col]}"/>')
+            i = j + 1
+    return "".join(out)
 
 def build(th):
     c = THEMES[th]
-    css = f"""
-* {{ transform-box: fill-box; }}
-.l {{ fill: none; stroke: {c['ink']}; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }}
-.f {{ fill: {c['bg']}; }}
-.m {{ stroke: {c['muted']}; }}
-.a {{ stroke: {c['accent']}; }}
-.say {{ font: 500 15px ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif; fill: {c['ink']}; }}
+    colors = dict(P, bubble=c["bubble"], bubtext=c["bubtext"])
+    states = OrderedDict()
+    for s in range(SLOTS):
+        for name, px in scene(s).items():
+            key = (name, tuple(sorted(px.items())))
+            states.setdefault(key, []).append(s)
+    css, groups = [], []
+    for n, ((name, items), slots) in enumerate(states.items()):
+        on = set(slots)
+        kf, prev = [], None
+        for s in range(SLOTS + 1):
+            v = 1 if (s % SLOTS) in on else 0
+            if v != prev:
+                kf.append(f"{s / SLOTS * 100:.3f}%{{opacity:{v}}}"); prev = v
+        css.append(f"@keyframes k{n}{{{''.join(kf)}}}.k{n}{{animation:k{n} {T}s steps(1,end) infinite}}")
+        cls = f"d k{n}" + (" f0" if 0 in on else "")
+        groups.append(f'<g class="{cls}">{runs(dict(items), colors)}</g>')
 
-.lapout {{ animation: lapout {T}s ease-in-out infinite; }}
-@keyframes lapout {{ 0%,42% {{ transform: translateX(0); opacity: 1 }} 48%,92% {{ transform: translateX(-70px); opacity: 0 }} 96%,100% {{ transform: translateX(0); opacity: 1 }} }}
-.lid {{ transform-origin: 50% 100%; animation: lid {T}s ease-in-out infinite; }}
-@keyframes lid {{ 0%,37% {{ transform: scaleY(1) }} 43%,96% {{ transform: scaleY(.06) }} 100% {{ transform: scaleY(1) }} }}
-.typing {{ animation: typing {T}s linear infinite; }}
-@keyframes typing {{ 0%,37% {{ opacity: 1 }} 39%,97% {{ opacity: 0 }} 99%,100% {{ opacity: 1 }} }}
-.tap {{ animation: tap .26s ease-in-out infinite alternate; }}
-.tap2 {{ animation-delay: .13s; }}
-@keyframes tap {{ to {{ transform: translateY(-2.5px) }} }}
-
-.board {{ animation: board {T}s ease-in-out infinite; }}
-@keyframes board {{ 0%,47% {{ transform: translateX(70px); opacity: 0 }} 53%,88% {{ transform: translateX(0); opacity: 1 }} 93%,100% {{ transform: translateX(70px); opacity: 0 }} }}
-.bhands {{ animation: bhands {T}s linear infinite; }}
-@keyframes bhands {{ 0%,52% {{ opacity: 0 }} 55%,86% {{ opacity: 1 }} 88%,100% {{ opacity: 0 }} }}
-.iron {{ animation: iron 1.6s ease-in-out infinite alternate; }}
-@keyframes iron {{ to {{ transform: translate(-3px, 2px) }} }}
-.spark {{ animation: spark .45s steps(2) infinite; }}
-@keyframes spark {{ 50% {{ opacity: 0 }} }}
-.led {{ animation: led 1.2s steps(1) infinite; }}
-.led.l2 {{ animation-delay: .4s }} .led.l3 {{ animation-delay: .8s }}
-@keyframes led {{ 0% {{ opacity: 1 }} 33% {{ opacity: .15 }} }}
-
-.head {{ transform-box: view-box; transform-origin: 450px 132px; animation: head {T}s ease-in-out infinite; }}
-@keyframes head {{ 0%,38% {{ transform: rotate(-2deg) }} 46% {{ transform: rotate(0) }} 54%,86% {{ transform: rotate(3deg) }} 94%,100% {{ transform: rotate(-2deg) }} }}
-.look {{ animation: look {T}s ease-in-out infinite; }}
-@keyframes look {{ 0%,38% {{ transform: translate(0,1.5px) }} 44%,48% {{ transform: translate(0,0) }} 54%,86% {{ transform: translate(1.5px,2px) }} 92%,94% {{ transform: translate(0,0) }} 100% {{ transform: translate(0,1.5px) }} }}
-.blink {{ transform-origin: center; animation: blink 4.2s infinite; }}
-@keyframes blink {{ 0%,93%,100% {{ transform: scaleY(1) }} 96% {{ transform: scaleY(.1) }} }}
-.bubble {{ transform-origin: 0% 100%; animation: bubble {T}s ease-out infinite; }}
-@keyframes bubble {{ 0% {{ opacity: 0; transform: scale(.7) }} 3%,15% {{ opacity: 1; transform: scale(1) }} 18%,100% {{ opacity: 0; transform: scale(1) }} }}
-
-@media (prefers-reduced-motion: reduce) {{
-  * {{ animation: none !important; }}
-  .board, .bhands, .bubble {{ opacity: 0; }}
-}}
-"""
-    hair_back = ("M417,92 C412,62 430,47 450,47 C470,47 488,62 483,92 C490,112 483,128 491,146 "
-                 "C497,161 489,175 494,190 C486,194 414,194 406,190 C411,175 403,161 409,146 C417,128 410,112 417,92 Z")
-    lock = ("M421,96 C415,114 425,128 418,146 C412,160 421,172 414,186 C419,189 425,186 426,181 "
-            "C423,169 430,157 426,143 C422,128 429,112 427,98 Z")
-    def mirror(d):
-        out = []
-        for tok in d.split():
-            if "," in tok:
-                x, y = tok.split(","); pre = x[0] if x[0].isalpha() else ""
-                out.append(f"{pre}{900 - float(x[len(pre):]):g},{y}")
-            else:
-                out.append(tok)
-        return " ".join(out)
-    strands = [
-        
-    ]
-    holes = "".join(f'<circle cx="{385 + i*6.5:.1f}" cy="{173 + j*5 + (5 if j > 1 else 0)}" r=".9" fill="{c["muted"]}"/>'
-                    for i in range(21) for j in range(4))
-    legs = "".join(f'<path class="l" d="M{437 + i*8},173 v3 M{437 + i*8},190 v3"/>' for i in range(4))
-
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="600" height="240" viewBox="150 0 600 240" role="img" aria-label="Line drawing of Polina at her desk, switching between typing on a laptop and soldering a breadboard with blinking LEDs.">
-<style>{css}</style>
-<defs><clipPath id="card"><rect x="150" width="600" height="240" rx="18"/></clipPath></defs>
-<rect x="150" width="600" height="240" rx="18" fill="{c['bg']}"/>
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{GW*SCALE}" height="{GH*SCALE}" viewBox="0 0 {GW} {GH}" shape-rendering="crispEdges" role="img" aria-label="Pixel-art Polina at her desk, switching between typing on a laptop and soldering a breadboard with blinking LEDs. She says ciao.">
+<style>.d{{opacity:0}}{"".join(css)}
+@media (prefers-reduced-motion:reduce){{.d{{animation:none!important;opacity:0}}.f0{{opacity:1}}}}</style>
+<defs><clipPath id="card"><rect width="{GW}" height="{GH}" rx="3"/></clipPath></defs>
 <g clip-path="url(#card)">
-  <line class="l m" x1="190" y1="198" x2="710" y2="198"/>
-
-  <!-- hair (the one filled shape), then body over it -->
-  <path d="{hair_back}" fill="{c['hair']}"/>
-  {"".join(f'<path d="{d}" fill="none" stroke="{c["strand"]}" stroke-width="1.5" stroke-linecap="round"/>' for d in strands)}
-  <path class="l" d="M442,126 L442,152 M458,126 L458,152"/>
-  <path class="l f" d="M378,199 C378,168 404,152 442,150 L458,150 C496,152 522,168 522,199"/>
-  <path class="l" d="M436,152 L450,166 L464,152"/>
-  <path class="l" d="M404,199 C404,186 406,178 409,171 M496,199 C496,186 494,178 491,171"/>
-  <path d="{lock}" fill="{c['hair']}"/>
-  <path d="{mirror(lock)}" fill="{c['hair']}"/>
-  <path d="{mirror("M423,112 C420,128 426,140 421,156 C418,166 422,176 419,183")}" fill="none" stroke="{c['strand']}" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M423,112 C420,128 426,140 421,156 C418,166 422,176 419,183" fill="none" stroke="{c['strand']}" stroke-width="1.5" stroke-linecap="round"/>
-
-  <g class="head">
-    <path class="l f" d="M420,92 C419,118 432,134 450,134 C468,134 481,118 480,92"/>
-    <path d="M418,104 C410,66 432,51 452,51 C474,51 490,66 482,104 C480,88 472,77 460,71 C450,85 434,96 418,104 Z" fill="{c['hair']}"/>
-    <path d="M460,70 C448,60 434,60 424,70" fill="none" stroke="{c['strand']}" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M460,70 C470,62 480,66 484,78" fill="none" stroke="{c['strand']}" stroke-width="1.5" stroke-linecap="round"/>
-    <path d="M452,78 C442,90 430,96 420,100" fill="none" stroke="{c['strand']}" stroke-width="1.5" stroke-linecap="round"/>
-    <path class="l" d="M429,89 L443,88 M457,88 L471,89"/>
-    <g class="look"><g class="blink">
-      <circle cx="436.5" cy="101" r="1.9" fill="{c['ink']}"/>
-      <circle cx="463.5" cy="101" r="1.9" fill="{c['ink']}"/>
-    </g></g>
-    <rect class="l" x="425" y="93" width="23" height="15" rx="5"/>
-    <rect class="l" x="452" y="93" width="23" height="15" rx="5"/>
-    <path class="l" d="M448,99 Q450,97.5 452,99 M425,98 L420,96 M475,98 L480,96"/>
-    <path class="l" d="M451,108 L449,115 L452,115.5"/>
-    <path class="l" d="M444,122 Q450,125 456,122"/>
-  </g>
-
-  <!-- headphones around the neck -->
-  <path class="l" d="M420,148 Q450,174 480,148"/>
-  <rect class="l f" x="408" y="137" width="14" height="22" rx="6"/>
-  <rect class="l f" x="478" y="137" width="14" height="22" rx="6"/>
-  <path class="l a" d="M415,143 v10 M485,143 v10"/>
-
-  <g class="bubble">
-    <path class="l" d="M508,46 h44 a13,13 0 0 1 0,26 h-38 l-10,9 l2,-10 a13,13 0 0 1 2,-25 z"/>
-    <text x="529" y="64" text-anchor="middle" class="say">ciao</text>
-  </g>
-
-  <!-- laptop -->
-  <g class="lapout">
-    <g class="lid">
-      <rect class="l f" x="392" y="138" width="116" height="58" rx="6"/>
-      <circle class="l a" cx="450" cy="167" r="6"/>
-    </g>
-    <path class="l" d="M380,198 L520,198 L516,194 L384,194 Z"/>
-  </g>
-  <!-- breadboard -->
-  <g class="board">
-    <rect class="l f" x="378" y="168" width="144" height="30" rx="3"/>
-    <line class="l m" x1="382" y1="183" x2="518" y2="183"/>
-    {holes}
-    <rect x="433" y="176" width="34" height="14" rx="2" fill="{c['ink']}"/>
-    {legs}
-    <path class="l m" d="M392,190 C394,160 420,158 428,180"/>
-    <path class="l m" d="M472,180 C478,158 500,160 508,190"/>
-    <path class="l" d="M400,162 v12 M414,162 v12 M490,162 v12"/>
-    <g class="led"><circle cx="400" cy="157" r="10" fill="{c['accent']}" opacity=".18"/><circle class="l a" cx="400" cy="157" r="5"/></g>
-    <g class="led l2"><circle cx="414" cy="157" r="10" fill="{c['accent']}" opacity=".18"/><circle class="l a" cx="414" cy="157" r="5"/></g>
-    <g class="led l3"><circle cx="490" cy="157" r="10" fill="{c['accent']}" opacity=".18"/><circle class="l a" cx="490" cy="157" r="5"/></g>
-  </g>
-  <g class="bhands">
-    <path class="l f" d="M510,199 L524,160 L540,165 L530,199"/>
-    <path class="l m" d="M560,151 C592,150 590,194 614,197"/>
-    <g class="iron">
-      <path class="l" d="M462,182 L484,171"/>
-      <path class="l f" d="M484,166 L554,147 L557,156 L487,175 Z"/>
-      <path class="l f" d="M523,154 C524,145 540,144 543,152 C545,160 530,166 524,161 Z"/>
-      <path class="l" d="M528,148 C531,152 531,157 529,161"/>
-      <g class="spark l a"><path d="M458,182 l-6,-2 M460,186 l-4,5 M464,186 l3,5"/></g>
-    </g>
-  </g>
+<rect width="{GW}" height="{GH}" fill="{c['bg']}"/>
+<rect y="34" width="{GW}" height="6" fill="{c['desk']}"/>
+<rect y="34" width="{GW}" height="1" fill="{c['deskline']}"/>
+{runs(character(), colors)}
+{"".join(groups)}
 </g>
 </svg>
 '''
