@@ -67,12 +67,12 @@ I study how people understand emerging tech — then design and build products f
 
 ## Papers
 
-| | |
-|---|---|
-| **A design toolkit for user acceptance and adoption** | <sub>Universal Access in the Information Society</sub> |
-| **Restoring Data Sovereignty: A Human-Centered Approach to Blockchain Health Technology** | <sub>ACM SPLASH Companion</sub> |
-| **CipherPal: A Privacy-Preserving Smart Fidget Device for Mindful Data Collection** | <sub>ACM DIS Companion</sub> |
-| **Designing blockchain-based wearables for health monitoring** | <sub>The Design Journal</sub> |
+<table>
+<tr><td><b>A design toolkit for user acceptance and adoption</b></td><td><sub>Universal Access in the Information Society</sub></td></tr>
+<tr><td><b>Restoring Data Sovereignty: A Human-Centered Approach to Blockchain Health Technology</b></td><td><sub>ACM SPLASH Companion</sub></td></tr>
+<tr><td><b>CipherPal: A Privacy-Preserving Smart Fidget Device for Mindful Data Collection</b></td><td><sub>ACM DIS Companion</sub></td></tr>
+<tr><td><b>Designing blockchain-based wearables for health monitoring</b></td><td><sub>The Design Journal</sub></td></tr>
+</table>
 
 Full list on [Google Scholar](https://scholar.google.com/citations?hl=en&user=7Ayj1TMAAAAJ).
 
