@@ -13,9 +13,7 @@ I study how people understand emerging tech — then design and build products f
 
 <br>
 
-<a href="https://danserme.github.io/danserme/">
-  <img src="./avatar.svg" alt="Pixel-art me at my desk, switching between coding on a laptop and soldering a breadboard. Click to play." width="100%">
-</a>
+<img src="./avatar.svg" alt="Pixel-art me at my desk, switching between coding on a laptop and soldering a breadboard." width="100%">
 
 <br>
 
