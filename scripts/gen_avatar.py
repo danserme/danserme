@@ -1,6 +1,6 @@
 # Regenerates avatar.svg: pixel-art Polina at her desk, switching between a laptop
 # and a breadboard, with a bookshelf of her project objects and notes on the wall.
-#   python3 scripts/gen_avatar.py .
+#   python3 scripts/gen_avatar.py .   (writes avatar-pixel.svg; rename the file if GitHub keeps serving a cached copy)
 #
 # 120x48 pixel grid scaled 5x. A static layer holds the room and the character;
 # each moving part is a small layer with its own frames, shown and hidden on a
@@ -328,4 +328,4 @@ def build():
 </svg>
 '''
 
-open(f"{sys.argv[1]}/avatar.svg", "w").write(build())
+open(f"{sys.argv[1]}/avatar-pixel.svg", "w").write(build())
