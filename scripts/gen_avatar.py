@@ -1,16 +1,14 @@
 # Regenerates avatar.svg and avatar-light.svg: retro-anime Polina switching
-# between a laptop and a breadboard, in front of a city-pop sunset.
+# between a laptop and a breadboard, in her room, with things from her projects on the shelf.
 #   python3 scripts/gen_avatar.py .
 import sys
 
 T = 12  # seconds per loop
 W, H = 600, 240
 
-THEMES = {  # background only; the character keeps her colours in both themes
-    "dark": dict(sky1="#140c2b", sky2="#3a1850", sky3="#7a2d5e", sun1="#ff9e7a", sun2="#ff5f8f",
-                 city="#1d1030", win="#ffd27a", desk="#2a1a35", deskhi="#4a2d58", star="#ffffff", stars=1, scan=".1"),
-    "light": dict(sky1="#ffd9c2", sky2="#ffb3b8", sky3="#e79ac9", sun1="#fff3c4", sun2="#ff8fa3",
-                  city="#b8749e", win="#fff3c4", desk="#e8d6dc", deskhi="#f6eaee", star="#ffffff", stars=0, scan=".035"),
+THEMES = {  # room only; the character keeps her colours in both themes
+    "dark":  dict(wall="#1f1c27", wall2="#191720", desk="#2c2735", deskhi="#3a3445", shelf="#5a5068", bracket="#5a5068", paper="#e9e4da"),
+    "light": dict(wall="#efe7dc", wall2="#e6dccf", desk="#d8c9b5", deskhi="#e6d9c7", shelf="#c9b7a0", bracket="#2a1426", paper="#fffaf2"),
 }
 C = dict(
     line="#2a1426", skin="#fde0cc", skin2="#f2b8a0", hair="#7a5530", hair2="#5a3b1f", hairhi="#b08250",
@@ -75,30 +73,12 @@ def build(th):
 .sway {{ transform-box: fill-box; transform-origin: 50% 0%; animation: sway 3.5s ease-in-out infinite alternate; }}
 .sway.r {{ animation-delay: -1.7s; }}
 @keyframes sway {{ from {{ transform: rotate(-1.5deg) }} to {{ transform: rotate(1.5deg) }} }}
-.tw {{ animation: tw 2.6s ease-in-out infinite alternate; }}
-@keyframes tw {{ to {{ opacity: .2 }} }}
-.winl {{ animation: winl 5s steps(1) infinite; }}
-@keyframes winl {{ 0% {{ opacity: 1 }} 60% {{ opacity: .3 }} }}
 
 @media (prefers-reduced-motion: reduce) {{
   * {{ animation: none !important; }}
   .board, .bhands, .bubble, .smoke, .mopen {{ opacity: 0; }}
 }}
 """
-    # ---- background: city-pop sunset
-    stars = "".join(f'<circle class="tw" style="animation-delay:-{i*0.7:.1f}s" cx="{x}" cy="{y}" r="{r}" fill="{b["star"]}"/>'
-                    for i, (x, y, r) in enumerate([(40, 30, 1.2), (96, 58, .9), (182, 24, 1.1), (420, 40, 1), (470, 22, 1.3),
-                                                   (548, 64, .9), (520, 32, .8), (60, 86, .8)])) if b["stars"] else ""
-    sun_stripes = "".join(f'<rect x="60" y="{y}" width="140" height="{h}" fill="{b["sky3"]}"/>'
-                          for y, h in [(150, 2), (160, 3), (171, 4), (183, 5), (196, 6)])
-    city = ("M0,206 L0,170 L22,170 L22,150 L44,150 L44,164 L62,164 L62,138 L80,138 L80,160 L100,160 L100,176 "
-            "L120,176 L120,146 L138,146 L138,168 L170,168 L170,184 L190,184 L190,206 Z")
-    city_r = ("M410,206 L410,180 L428,180 L428,152 L452,152 L452,170 L470,170 L470,136 L492,136 L492,162 L512,162 "
-              "L512,150 L534,150 L534,176 L560,176 L560,158 L582,158 L582,172 L600,172 L600,206 Z")
-    wins = "".join(f'<rect class="winl" style="animation-delay:-{(x*7+y)%50/10:.1f}s" x="{x}" y="{y}" width="3" height="4" fill="{b["win"]}"/>'
-                   for x, y in [(27, 158), (35, 166), (67, 146), (73, 154), (125, 154), (129, 162), (433, 160),
-                                (441, 170), (476, 144), (482, 152), (518, 158), (524, 166), (565, 166)])
-
     # ---- hair shapes (centre part, no bangs, long and wavy)
     hair_back = ("M300,34 C262,34 246,58 246,92 C246,120 238,140 244,162 C250,182 238,196 246,214 "
                  "L354,214 C362,196 350,182 356,162 C362,140 354,120 354,92 C354,58 338,34 300,34 Z")
@@ -124,27 +104,39 @@ def build(th):
       </g>'''
     lens = lambda x: f'<rect x="{x}" y="86" width="30" height="24" rx="7"'
 
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Retro anime-style illustration of Polina at her desk at sunset, switching between typing on a laptop and soldering a breadboard with blinking LEDs. She says ciao.">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="Retro anime-style illustration of Polina at her desk, switching between typing on a laptop and soldering a breadboard with blinking LEDs. She says ciao.">
 <style>{css}</style>
 <defs>
   <clipPath id="card"><rect width="{W}" height="{H}" rx="18"/></clipPath>
-  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="{b['sky1']}"/><stop offset=".6" stop-color="{b['sky2']}"/><stop offset="1" stop-color="{b['sky3']}"/>
-  </linearGradient>
-  <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="{b['sun1']}"/><stop offset="1" stop-color="{b['sun2']}"/>
-  </linearGradient>
-  <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="1" fill="#000" opacity="{b['scan']}"/></pattern>
-  <clipPath id="sunclip"><circle cx="130" cy="150" r="64"/></clipPath>
   <clipPath id="lenses">{lens(266)}/>{lens(304)}/></clipPath>
 </defs>
 <g clip-path="url(#card)">
-  <rect width="{W}" height="{H}" fill="url(#sky)"/>
-  {stars}
-  <circle cx="130" cy="150" r="64" fill="url(#sun)"/>
-  <g clip-path="url(#sunclip)">{sun_stripes}</g>
-  <path d="{city}" fill="{b['city']}"/><path d="{city_r}" fill="{b['city']}"/>
-  {wins}
+  <rect width="{W}" height="{H}" fill="{b['wall']}"/>
+  
+  <!-- shelf with things from my projects -->
+  <rect x="34" y="96" width="170" height="7" rx="2" fill="{b['shelf']}" {L}/>
+  <path d="M60,103 L60,116 L72,103 M178,103 L178,116 L166,103" fill="none" stroke="{b['bracket']}" stroke-width="2.2" stroke-linejoin="round"/>
+  <!-- vera: microphone -->
+  <ellipse cx="68" cy="94" rx="14" ry="3.5" fill="#4a4258" {L}/>
+  <path d="M68,92 L68,72" {L} stroke-width="3"/>
+  <rect x="59" y="40" width="18" height="32" rx="9" fill="#cfc8dc" {L}/>
+  <path d="M61,50 H75 M61,56 H75 M61,62 H75" stroke="#8d86a0" stroke-width="1.4"/>
+  <!-- AI-musicGen-glove: fabric glove with bend sensors -->
+  <path d="M104,96 L104,74 C100,72 99,64 102,62 L106,62 L106,50 C106,46 111,46 111,50 L111,60 L113,46 C113,42 118,42 118,46 L117,60 L120,48 C120,44 125,45 124,49 L122,62 L126,54 C127,50 132,51 131,55 L126,74 L126,96 Z" fill="#9fd3c7" {L}/>
+  <path d="M109,66 L109,88 M115,64 L115,88 M121,66 L121,88" stroke="#5e8f84" stroke-width="1.6" stroke-dasharray="3 2"/>
+  <path d="M126,90 C138,92 136,102 146,100" fill="none" stroke="#ff8fb1" stroke-width="2"/>
+  <!-- cipher.pal: fidget device -->
+  <path d="M152,96 C150,80 160,72 172,72 C186,72 194,80 192,96 Z" fill="#ffd9a8" {L}/>
+  <circle cx="172" cy="84" r="6" fill="#fff4e3" {L} stroke-width="1.6"/>
+  <circle class="led" cx="184" cy="90" r="2" fill="#8b6cf0"/>
+
+  <!-- pinned sketch of a waveform + a sticky note -->
+  <rect x="454" y="34" width="92" height="66" fill="{b['paper']}" {L}/>
+  <path d="M464,70 L472,70 L475,60 L479,82 L483,50 L487,88 L491,58 L495,76 L499,64 L503,72 L507,68 L536,68" fill="none" stroke="#8b6cf0" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M464,88 H494 M464,93 H486" stroke="#b9b0c8" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="500" cy="38" r="3.5" fill="#ff5a6e" {L} stroke-width="1.4"/>
+  <rect x="536" y="82" width="34" height="32" fill="#ffe27a" {L}/>
+  <path d="M542,92 H562 M542,99 H558 M542,106 H554" stroke="#b8963a" stroke-width="1.6" stroke-linecap="round"/>
 
   <!-- character -->
   <path d="{hair_back}" fill="{C['hair2']}" {L}/>
@@ -243,7 +235,6 @@ def build(th):
     </g>
   </g>
 
-  <rect width="{W}" height="{H}" fill="url(#scan)"/>
 </g>
 </svg>
 '''
