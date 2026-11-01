@@ -78,7 +78,7 @@ Full list on [Google Scholar](https://scholar.google.com/citations?hl=en&user=7A
 
 ## Stack
 
-<img src="https://skillicons.dev/icons?i=ts,js,py,swift,kotlin,cpp,arduino,processing,figma&perline=9" alt="TypeScript, JavaScript, Python, Swift, Kotlin, C++, Arduino, Processing, Figma">
+<img src="https://skillicons.dev/icons?i=ts,js,py,swift,kotlin,flutter,cpp,arduino,processing,figma&perline=10" alt="TypeScript, JavaScript, Python, Swift, Kotlin, Flutter, C++, Arduino, Processing, Figma">
 
 <br>
 
