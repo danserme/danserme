@@ -16,7 +16,7 @@ I'm an HCI researcher at **Politecnico di Milano** and a design engineer at **El
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./avatar.svg">
     <source media="(prefers-color-scheme: light)" srcset="./avatar-light.svg">
-    <img src="./avatar.svg" alt="Pixel-art me at my desk, switching between coding on a laptop and soldering a breadboard. Click to play." width="100%">
+    <img src="./avatar.svg" alt="Retro anime-style me at my desk at sunset, switching between coding on a laptop and soldering a breadboard. Click to play." width="100%">
   </picture>
 </a>
 
