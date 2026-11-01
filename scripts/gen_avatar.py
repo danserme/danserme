@@ -9,15 +9,12 @@ W, H = 600, 240
 
 C = dict(
     line="#2b1f2e",
-    wall="#5d4c62", wall2="#4a3c52", lamp="#ffd9a0", wood="#9c6d50", wood2="#7a5040", wood3="#5f3d33",
-    sky="#1d2747", sky2="#2f3d66", bldg="#18203a", winlit="#ffd58a", neon1="#7fe3e0", neon2="#f29ac4", curtain="#6f8a8a",
-    book1="#8e6f86", book2="#6d7f98", book3="#a88a62", book4="#7b8f74", shelfwood="#7d5a48",
-    blouse="#ece0cb", blouse2="#cdbca6",
+    wall="#5d4f66", wall2="#4a3e54", wall_sh="#463b55", shelfwood="#7d5a48", book1="#8e6f86", book2="#6d7f98", book3="#a88a62", book4="#7b8f74", light="#ffffff", desk="#3b3249", deskhi="#4c425c",
     skin="#f6dccf", skin2="#dcaeae", lip="#c7727c",
-    hair="#5e4130", hair2="#3f2b22", hairhi="#8c6849", hairend="#a7764c", hairend2="#7c5536", frame="#7b665b",
+    hair="#5a3d2c", hair2="#3b2820", hairhi="#8a654a", hairend="#8f6343", hairend2="#6a4630", frame="#4f443b",
     white="#f6efe9", iris="#6f8466", iris2="#34402f",
     knit="#7a2f3c", knit2="#5a222d", phones="#2f2a3b", pad="#c98a9a",
-    lens="#d7defa", lid="#d9d2c4", lid2="#b3ab9c", lid3="#958d80", key="#8b8377", sticker="#c98a9a",
+    lens="#d7defa", lid="#cfc9da", lid2="#a9a1bb", sticker="#c98a9a",
     board="#ece4d4", hole="#b3a796", chip="#2b2533", red="#e8606f", yel="#e9c457", grn="#59c48a", blu="#6f8fe0",
     grip="#c98a9a", metal="#bdb6c9", shelf="#6b6382",
     sub="#fff3c2",
@@ -37,18 +34,26 @@ def mirror(d, cx=300):
 L = f'stroke="{C["line"]}" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"'
 
 # ---- shapes (light comes from the left, so cel shadows fall to the right)
-HAIR_BACK = ("M300,30 C266,30 246,52 244,86 C242,120 236,150 230,182 L240,176 L238,206 L252,190 L256,216 "
-             "L266,196 L272,210 L280,190 L320,190 L328,210 L334,196 L344,216 L348,190 L362,206 L360,176 "
-             "L370,182 C364,150 358,120 356,86 C354,52 334,30 300,30 Z")
+HAIR_BACK = ("M296,30 C262,30 242,54 240,88 C238,110 222,124 230,144 C238,162 218,176 228,196 "
+             "C235,208 226,216 230,226 L370,226 C374,216 365,208 369,196 C376,178 362,164 367,146 "
+             "C376,126 360,112 360,88 C358,54 332,30 296,30 Z")
 HAIR_CAP = ("M300,32 C272,32 258,48 256,72 L264,78 C270,64 284,56 300,54 "
             "C316,56 330,64 336,78 L344,72 C342,48 328,32 300,32 Z")
 CURTAIN = ("M300,54 C284,56 268,58 264,72 C260,92 266,112 260,136 C256,152 250,164 244,176 L256,168 "
            "L254,186 L264,170 C272,152 272,130 274,112 C276,92 280,74 290,58 C294,50 298,44 300,40 Z")
 CURTAIN_SH = "M290,58 C282,74 278,94 276,112 C274,130 272,150 266,166 C268,146 268,126 270,108 C272,88 278,70 290,58 Z"
-FRONT = ("M300,31 C276,31 257,46 254,74 C250,96 258,112 252,128 C246,142 254,154 246,168 C244,174 242,178 240,182 L252,172 "
-         "L250,190 L262,172 C270,150 270,128 272,108 C271,88 278,70 300,63 Z")
-FRONT_SH = "M300,63 C278,70 271,88 272,108 C270,128 270,150 262,172 C264,150 265,128 266,108 C266,86 276,70 300,63 Z"
-SHINE2 = "M260,66 C265,50 278,40 294,36 L290,42 L296,43 C283,47 274,55 270,66 L267,61 L264,70 Z"
+FRONT_L = ("M292,32 C272,34 256,48 254,74 C251,94 265,108 252,128 C240,146 260,158 246,176 "
+           "C246,186 248,196 244,204 L256,196 L258,208 L266,192 C262,176 272,164 268,148 "
+           "C264,134 274,118 272,100 C271,84 278,70 292,60 Z")
+FRONT_R = ("M292,32 C320,30 344,44 348,72 C352,94 338,108 350,128 C362,146 340,158 354,176 "
+           "C354,186 352,196 356,204 L344,196 L342,208 L334,192 C338,176 328,164 332,148 "
+           "C336,134 326,118 328,100 C330,82 316,68 298,64 C295,63 293,62 292,60 Z")
+SH_L = "M292,60 C278,70 271,84 272,100 C274,118 264,134 268,148 C264,136 266,118 266,100 C266,82 276,68 292,60 Z"
+SH_R = "M292,60 C312,66 330,82 328,100 C326,118 336,134 332,148 C330,134 322,118 322,100 C322,84 310,70 292,60 Z"
+WISP_L = "M272,78 C264,96 272,112 264,132 C263,124 262,116 266,104 C270,92 266,86 272,78 Z"
+WISP_R = "M324,74 C336,92 326,108 336,126 C334,130 332,130 331,128 C324,112 330,96 321,78 Z"
+SHINE2 = "M258,70 C262,52 274,42 288,37 L285,43 L290,44 C279,48 271,57 267,70 L264,64 L261,74 Z"
+SHINE_R = "M304,36 C320,36 334,44 340,58 L334,55 L336,62 C330,52 318,44 304,42 Z"
 SHINE = "M268,52 L274,46 L277,51 L283,42 L286,47 L292,39 L295,41 L289,49 L285,53 L282,49 L276,56 Z"
 LOCK = ("M262,140 C252,152 262,164 254,176 C246,188 258,198 248,214 L258,206 C262,210 266,212 272,216 C266,204 274,194 268,182 C262,170 274,162 270,150 Z")
 FACE = "M269,70 C268,96 274,114 286,125 C291,130 296,132 300,132 C304,132 309,130 314,125 C326,114 332,96 331,70 C318,58 282,58 269,70 Z"
@@ -56,21 +61,21 @@ BODY = "M226,240 C230,188 252,168 288,160 L312,160 C348,168 370,188 374,240 Z"
 
 def eye(cx, side):
     """side=-1 for her right eye (viewer's left), +1 for the other; outer corner flicks outward."""
-    o, i = cx + 11 * side, cx - 10 * side
-    almond = f"M{o},99 C{o - 4*side},92.5 {i + 5*side},92 {i},97 C{i + 4*side},102.5 {o - 6*side},103.5 {o},99 Z"
+    o, i = cx + 12.5 * side, cx - 10.5 * side
+    almond = f"M{o},99 C{o - 4*side},91 {i + 5*side},90.5 {i},96.5 C{i + 4*side},103.5 {o - 6*side},104.5 {o},99 Z"
     return f'''
     <clipPath id="e{cx}"><path d="{almond}"/></clipPath>
     <g class="blink">
       <path d="{almond}" fill="{C['white']}"/>
       <g clip-path="url(#e{cx})"><g class="look">
-        <ellipse cx="{cx}" cy="99.5" rx="6" ry="6.4" fill="{C['iris']}"/>
+        <ellipse cx="{cx}" cy="98.5" rx="6.8" ry="7.4" fill="{C['iris']}"/>
         <ellipse cx="{cx}" cy="98" rx="6" ry="3" fill="{C['iris2']}" opacity=".5"/>
-        <ellipse cx="{cx}" cy="100" rx="2.6" ry="3.4" fill="{C['iris2']}"/>
+        <ellipse cx="{cx}" cy="99" rx="3" ry="3.8" fill="{C['iris2']}"/>
         <circle cx="{cx - 2.2}" cy="97.4" r="1.2" fill="#fff"/>
       </g></g>
-      <path d="M{o + side},98.5 C{o - 4*side},91.5 {i + 5*side},90.5 {i + side},96.5" fill="none" stroke="{C['line']}" stroke-width="2.8" stroke-linecap="round"/>
-      <path d="M{o},98 L{o + 4*side},95.5" stroke="{C['line']}" stroke-width="1.6" stroke-linecap="round"/>
-      <path d="M{o - 3*side},102.5 Q{cx},104.5 {i + 3*side},101.5" fill="none" stroke="{C['line']}" stroke-width="1" opacity=".6"/>
+      <path d="M{o + side},98.5 C{o - 4*side},90 {i + 5*side},89 {i + side},96" fill="none" stroke="{C['line']}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M{o},98 L{o + 4.5*side},95 M{o - 2*side},95.6 L{o + 2*side},92.4" stroke="{C['line']}" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M{o - 2*side},102 Q{cx},105 {i + 2*side},101.5" fill="none" stroke="{C['line']}" stroke-width="1.2" opacity=".7"/>
       <path d="M{o - 2*side},92.5 C{cx},88.5 {i + 4*side},89.5 {i + side},92" fill="none" stroke="{C['line']}" stroke-width=".9" opacity=".55"/>
     </g>'''
 
@@ -86,7 +91,7 @@ def build():
 .tap2 {{ animation-delay: .12s; }}
 @keyframes tap {{ to {{ transform: translateY(-2.5px) }} }}
 .board {{ animation: board {T}s ease-in-out infinite; }}
-@keyframes board {{ 0%,47% {{ transform: translateX(-90px); opacity: 0 }} 53%,88% {{ transform: translateX(0); opacity: 1 }} 93%,100% {{ transform: translateX(-90px); opacity: 0 }} }}
+@keyframes board {{ 0%,47% {{ transform: translateX(90px); opacity: 0 }} 53%,88% {{ transform: translateX(0); opacity: 1 }} 93%,100% {{ transform: translateX(90px); opacity: 0 }} }}
 .bhands {{ animation: bhands {T}s linear infinite; }}
 @keyframes bhands {{ 0%,52% {{ opacity: 0 }} 55%,86% {{ opacity: 1 }} 88%,100% {{ opacity: 0 }} }}
 .iron {{ animation: iron 1.4s ease-in-out infinite alternate; }}
@@ -114,25 +119,21 @@ def build():
 .sway {{ transform-box: fill-box; transform-origin: 50% 0%; animation: sway 3.5s ease-in-out infinite alternate; }}
 .sway.r {{ animation-delay: -1.7s; }}
 @keyframes sway {{ from {{ transform: rotate(-1.2deg) }} to {{ transform: rotate(1.2deg) }} }}
-.flick {{ animation: flick 6s steps(1) infinite; }}
-@keyframes flick {{ 0% {{ opacity: 1 }} 70% {{ opacity: .35 }} 74% {{ opacity: 1 }} }}
 @media (prefers-reduced-motion: reduce) {{
   * {{ animation: none !important; }}
   .board, .bhands, .smoke, .mopen, .sub {{ opacity: 0; }}
 }}
 """
     hair_lines = "".join(
-        f'<path d="{d}" fill="none" stroke="{C["hair2"]}" stroke-width="1" stroke-linecap="round" opacity=".8"/>'
-        for d in ["M276,46 C266,62 262,92 260,124", "M288,40 C276,52 268,76 266,100",
-                  mirror("M276,46 C266,62 262,92 260,124"), mirror("M288,40 C276,52 268,76 266,100")])
+        f'<path d="{d}" fill="none" stroke="{C["hair2"]}" stroke-width="1.3" stroke-linecap="round" opacity=".9"/>'
+        for d in ["M276,44 C264,60 264,88 258,108 C252,126 266,140 256,160", "M286,38 C274,52 268,76 266,96 C264,110 272,120 266,134",
+                  "M312,40 C330,52 338,74 340,94 C342,114 332,128 344,148", "M326,46 C340,62 346,84 342,104 C340,118 348,128 344,140"])
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="90s anime-style illustration of Polina at her desk, switching between typing on a laptop and soldering a breadboard. A subtitle reads: Ciao.">
 <style>{css}</style>
 <defs>
   <linearGradient id="ends" x1="0" y1="0" x2="0" y2="1"><stop offset=".35" stop-color="{C['hair']}"/><stop offset=".35" stop-color="{C['hairend']}"/></linearGradient>
   <linearGradient id="ends2" x1="0" y1="0" x2="0" y2="1"><stop offset=".62" stop-color="{C['hair2']}"/><stop offset=".62" stop-color="{C['hairend2']}"/></linearGradient>
-  <radialGradient id="lampglow"><stop offset="0" stop-color="{C['lamp']}" stop-opacity=".38"/><stop offset="1" stop-color="{C['lamp']}" stop-opacity="0"/></radialGradient>
-  <linearGradient id="night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{C['sky']}"/><stop offset="1" stop-color="{C['sky2']}"/></linearGradient>
   <clipPath id="card"><rect width="{W}" height="{H}" rx="14"/></clipPath>
   <radialGradient id="vig" cx=".5" cy=".45" r=".75"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#140c1c" stop-opacity=".55"/></radialGradient>
   <filter id="grain" x="0" y="0" width="100%" height="100%">
@@ -141,23 +142,14 @@ def build():
   </filter>
 </defs>
 <g clip-path="url(#card)">
-  <!-- room -->
+  <!-- wall, window light, desk -->
   <rect width="{W}" height="{H}" fill="{C['wall']}"/>
-  <rect y="0" width="{W}" height="12" fill="{C['wall2']}"/>
-  <circle cx="112" cy="118" r="120" fill="url(#lampglow)"/>
+  <path d="M96,0 L196,0 L150,120 L50,120 Z" fill="{C['light']}" opacity=".06"/>
+  <path d="M206,0 L236,0 L190,120 L160,120 Z" fill="{C['light']}" opacity=".04"/>
 
-  <!-- night window with curtain -->
-  <rect x="498" y="10" width="100" height="148" fill="url(#night)" {L}/>
-  <path d="M506,158 V112 H520 V90 H536 V158 Z M544,158 V70 H560 V48 H574 V158 Z M580,158 V96 H600 V158 Z" fill="{C['bldg']}"/>
-  {"".join(f'<rect class="flick" style="animation-delay:-{(x+y)%6}s" x="{x}" y="{y}" width="3" height="4" fill="{C["winlit"]}"/>' for x,y in [(510,120),(516,132),(526,98),(530,112),(548,80),(554,94),(566,60),(566,74),(584,106),(590,120),(548,120)])}
-  <rect x="540" y="56" width="3" height="18" rx="1.5" fill="{C['neon1']}"/><rect x="540" y="56" width="3" height="18" rx="1.5" fill="{C['neon1']}" opacity=".35" transform="translate(-2,-2) scale(1)"/>
-  <rect x="577" y="78" width="3" height="14" rx="1.5" fill="{C['neon2']}"/>
-  <path d="M498,84 H598" stroke="{C['line']}" stroke-width="1.4"/>
-  <path d="M548,10 V158" stroke="{C['line']}" stroke-width="1.4"/>
-  <path d="M488,6 C496,40 492,110 500,162 L512,162 C506,110 510,40 504,6 Z" fill="{C['curtain']}" {L}/>
-
+  <g transform="translate(-92,0)">
   <!-- bookshelf with things from my projects -->
-  <rect x="128" y="14" width="126" height="186" fill="{C['shelfwood']}" {L}/>
+  <rect x="128" y="14" width="126" height="192" fill="{C['shelfwood']}" {L}/>
   <rect x="134" y="20" width="114" height="40" fill="{C['wall2']}"/>
   <rect x="134" y="66" width="114" height="40" fill="{C['wall2']}"/>
   <rect x="134" y="112" width="114" height="46" fill="{C['wall2']}"/>
@@ -206,124 +198,112 @@ def build():
   <rect x="214" y="80" width="26" height="26" fill="{C['book2']}" {L}/>
   <rect x="218" y="84" width="18" height="18" fill="{C['book1']}" opacity=".6"/>
 
-  <!-- pinned waveform sketch + notes -->
-  <rect x="268" y="18" width="62" height="44" fill="#e9e1d1" {L}/>
-  <path d="M273,42 H278 L280,35 L283,50 L286,28 L289,54 L292,34 L295,46 L298,38 L301,44 L303,41 H325" fill="none" stroke="#7d6fae" stroke-width="1.4" stroke-linejoin="round"/>
-  <circle cx="299" cy="21" r="2.4" fill="{C['red']}" {L}/>
-  <rect x="336" y="30" width="22" height="20" fill="#f1d77a" {L}/>
-  <path d="M340,37 H354 M340,42 H350" stroke="#a88e3c" stroke-width="1.2"/>
-
-  <!-- me: seated to the right of the desk -->
-  <g transform="translate(120,0)">
-    <path d="{HAIR_BACK}" fill="url(#ends2)" {L}/>
-    <path d="M291,128 L291,162 L309,162 L309,128 Z" fill="{C['skin']}" {L}/>
-    <path d="M291,126 L309,126 L309,146 C302,141 296,141 291,143 Z" fill="{C['skin2']}"/>
-    <path d="{BODY}" fill="{C['blouse']}" {L}/>
-    <path d="M336,168 C356,180 366,198 370,240 L344,240 C344,210 342,188 336,168 Z" fill="{C['blouse2']}"/>
-    <path d="M290,160 L300,172 L310,160 Z" fill="{C['skin']}"/>
-    <path d="M286,158 L296,178 L300,170 Z M314,158 L304,178 L300,170 Z" fill="{C['blouse']}" {L}/>
-    <path d="M300,174 V240" stroke="{C['blouse2']}" stroke-width="1.2"/>
-    <circle cx="303" cy="190" r="1.4" fill="{C['blouse2']}"/><circle cx="303" cy="206" r="1.4" fill="{C['blouse2']}"/>
-    <g class="sway"><path d="{LOCK}" fill="url(#ends)" {L}/><path d="M262,152 C256,164 264,174 258,186 C252,196 258,204 254,210" fill="none" stroke="{C['hair2']}" stroke-width="1"/></g>
-    <g class="sway r"><path d="{mirror(LOCK)}" fill="url(#ends)" {L}/><path d="{mirror(LOCK)}" fill="#000" opacity=".18"/></g>
-  <g class="head">
-      <path d="{FACE}" fill="{C['skin']}" {L}/>
-      <path d="M327,76 C328,98 322,114 312,124 C308,128 304,131 301,132 C310,122 318,108 318,82 Z" fill="{C['skin2']}" opacity=".85"/>
-      <path d="{FRONT}" fill="{C['hair']}" {L}/>
-      <path d="{mirror(FRONT)}" fill="{C['hair']}" {L}/>
-      <path d="{mirror(FRONT)}" fill="{C['hair2']}" opacity=".3"/>
-      <path d="{FRONT_SH}" fill="{C['hair2']}"/>
-      <path d="{mirror(FRONT_SH)}" fill="{C['hair2']}"/>
-      {hair_lines}
-      <path d="{SHINE2}" fill="{C['hairhi']}"/>
-      <path d="{mirror(SHINE2)}" fill="{C['hairhi']}" opacity=".45"/>
-      <path d="M300,32 L300,62" stroke="{C['line']}" stroke-width="1.2" stroke-linecap="round"/>
-  
-      <path d="M276,85 C282,81 290,81 296,83 M324,85 C318,81 310,81 304,83" fill="none" stroke="{C['hair2']}" stroke-width="1.6" stroke-linecap="round"/>
-      {eye(287, -1)}
-      {eye(313, 1)}
-      <path d="M276,115 l3,-4 M280,115 l3,-4 M284,115 l3,-4 M316,115 l3,-4 M320,115 l3,-4 M324,115 l3,-4" stroke="#d98896" stroke-width="1" stroke-linecap="round" opacity=".7"/>
-      <path d="M302,104 L303.5,112 L300,113.5" fill="none" stroke="{C['skin2']}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-      <path class="mshut" d="M293.5,120.5 Q300,125.5 306.5,120.5" fill="none" stroke="{C['line']}" stroke-width="1.4" stroke-linecap="round"/>
-      <path class="mshut" d="M297,125.2 Q300,126.4 303,125.2" fill="none" stroke="{C['lip']}" stroke-width="1.4" stroke-linecap="round"/>
-      <path class="mopen" d="M296,122 Q300,121.5 304,122 Q303,127 300,127 Q297,127 296,122 Z" fill="{C['lip']}" {L}/>
-  
-      <!-- glasses: thin rectangular frames -->
-      <rect x="268" y="87" width="30" height="22" rx="7" fill="{C['lens']}" fill-opacity=".12" stroke="{C['frame']}" stroke-width="2.8"/>
-      <rect x="302" y="87" width="30" height="22" rx="7" fill="{C['lens']}" fill-opacity=".12" stroke="{C['frame']}" stroke-width="2.8"/>
-      <rect x="268" y="87" width="30" height="22" rx="7" fill="none" stroke="{C['line']}" stroke-width=".8" opacity=".6"/>
-      <rect x="302" y="87" width="30" height="22" rx="7" fill="none" stroke="{C['line']}" stroke-width=".8" opacity=".6"/>
-      <path d="M298,94 Q300,92.5 302,94 M268,93 L262,90 M332,93 L338,90" fill="none" stroke="{C['frame']}" stroke-width="2.4" stroke-linecap="round"/>
-      <path d="M273,106 L282,90 M277,106 L284,94 M307,106 L316,90" stroke="#fff" stroke-width="1.4" opacity=".55" stroke-linecap="round"/>
-    </g>
-  
   </g>
 
-  <g transform="translate(0,34)">
-  <!-- desk lamp -->
-  <ellipse cx="62" cy="160" rx="22" ry="5" fill="#cbbba0" {L}/>
-  <path d="M62,156 L74,106 L104,88" fill="none" stroke="#cbbba0" stroke-width="5" stroke-linecap="round"/>
-  <path d="M62,156 L74,106 L104,88" fill="none" {L}/>
-  <path d="M96,76 L122,88 L118,108 C110,112 92,104 88,94 Z" fill="#e6d6b6" {L}/>
-  <ellipse cx="104" cy="101" rx="13" ry="5" fill="{C['lamp']}" transform="rotate(25 104 101)"/>
-  <path d="M92,104 L118,108 L230,166 L40,166 Z" fill="{C['lamp']}" opacity=".08"/>
+  <!-- pinned waveform sketch + notes -->
+  <rect x="428" y="30" width="70" height="50" fill="#e9e1d1" {L}/>
+  <path d="M434,57 H440 L442,49 L445,66 L448,40 L451,72 L454,46 L457,60 L460,51 L463,57 L466,54 H492" fill="none" stroke="#7d6fae" stroke-width="1.5" stroke-linejoin="round"/>
+  <circle cx="463" cy="33" r="2.6" fill="{C['red']}" {L}/>
+  <rect x="506" y="44" width="26" height="24" fill="#f1d77a" {L}/>
+  <path d="M510,52 H528 M510,58 H524" stroke="#a88e3c" stroke-width="1.2"/>
+  <rect x="470" y="94" width="30" height="22" fill="#d9e3e0" {L}/>
+  <path d="M474,101 H496 M474,107 H490" stroke="#8aa09a" stroke-width="1.2"/>
 
-  <!-- desk: top surface + front -->
-  <path d="M0,158 L372,158 L394,172 L0,172 Z" fill="{C['wood']}" {L}/>
-  <path d="M0,172 L394,172 L394,240 L0,240 Z" fill="{C['wood2']}" {L}/>
-  <path d="M0,176 H394" stroke="{C['wood3']}" stroke-width="1.2" opacity=".6"/>
-  <path d="M60,188 H200 M260,200 H380" stroke="{C['wood3']}" stroke-width="1" opacity=".4"/>
-  <path d="M20,162 L200,164" stroke="#fff" stroke-width="1" opacity=".15"/>
+  <!-- her shadow cast on the wall -->
+  <g transform="translate(22,8)" fill="{C['wall_sh']}">
+    <path d="{HAIR_BACK}"/><path d="{BODY}"/>
+  </g>
 
-  <!-- retro laptop: lid back faces us, screen faces me -->
+  <!-- character -->
+  <path d="{HAIR_BACK}" fill="url(#ends2)" {L}/>
+  <path d="M291,128 L291,162 L309,162 L309,128 Z" fill="{C['skin']}" {L}/>
+  <path d="M291,126 L309,126 L309,146 C302,141 296,141 291,143 Z" fill="{C['skin2']}"/>
+  <path d="{BODY}" fill="{C['knit']}" {L}/>
+  <path d="M336,168 C356,180 366,198 370,240 L344,240 C344,210 342,188 336,168 Z" fill="{C['knit2']}"/>
+  <path d="M288,160 C294,171 306,171 312,160 Z" fill="{C['skin']}"/>
+  <path d="M284,159 C290,175 310,175 316,159 M287,163 C292,178 308,178 313,163" fill="none" {L}/>
+  <g class="sway"><path d="{LOCK}" fill="url(#ends)" {L}/><path d="M258,170 C250,182 260,192 252,206" fill="none" stroke="{C['hair2']}" stroke-width="1"/><path d="M262,152 C256,164 264,174 258,186 C252,196 258,204 254,210" fill="none" stroke="{C['hair2']}" stroke-width="1"/></g>
+  <g class="sway r"><path d="{mirror(LOCK)}" fill="url(#ends)" {L}/><path d="{mirror(LOCK)}" fill="#000" opacity=".18"/></g>
+
+  <g class="head">
+    <path d="{FACE}" fill="{C['skin']}" {L}/>
+    <path d="M327,76 C328,98 322,114 312,124 C308,128 304,131 301,132 C310,122 318,108 318,82 Z" fill="{C['skin2']}" opacity=".85"/>
+    <path d="{FRONT_L}" fill="{C['hair']}" {L}/>
+    <path d="{FRONT_R}" fill="{C['hair']}" {L}/>
+    <path d="{FRONT_R}" fill="{C['hair2']}" opacity=".22"/>
+    <path d="{SH_L}" fill="{C['hair2']}"/>
+    <path d="{SH_R}" fill="{C['hair2']}"/>
+    <path d="{WISP_L}" fill="{C['hair']}" {L} stroke-width="1"/>
+    <path d="{WISP_R}" fill="{C['hair']}" {L} stroke-width="1"/>
+    {hair_lines}
+    <path d="{SHINE2}" fill="{C['hairhi']}"/>
+    <path d="{SHINE_R}" fill="{C['hairhi']}" opacity=".7"/>
+    <path d="M292,32 L292,60" stroke="{C['line']}" stroke-width="1.2" stroke-linecap="round"/>
+
+    <path d="M275,85 C280,79.5 290,79 296,82 M325,85 C320,79.5 310,79 304,82" fill="none" stroke="{C['hair2']}" stroke-width="2" stroke-linecap="round"/>
+    {eye(287, -1)}
+    {eye(313, 1)}
+    <path d="M276,115 l3,-4 M280,115 l3,-4 M284,115 l3,-4 M316,115 l3,-4 M320,115 l3,-4 M324,115 l3,-4" stroke="#d98896" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+    <path d="M302,104 C303,108 304,110.5 303,113" fill="none" stroke="{C['skin2']}" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M297.5,114.6 Q300,115.8 302.8,114.4" fill="none" stroke="#c48f8f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="mshut" d="M296,122.4 Q300,121.4 304,122.4 Q303.4,126.6 300,126.8 Q296.6,126.6 296,122.4 Z" fill="#e3a1a3"/>
+    <path class="mshut" d="M294.5,121.6 Q300,124.4 305.5,121.6" fill="none" stroke="#9c5562" stroke-width="1.3" stroke-linecap="round"/>
+    <path class="mopen" d="M296,122 Q300,121.5 304,122 Q303,127 300,127 Q297,127 296,122 Z" fill="{C['lip']}" {L}/>
+
+    <!-- glasses: thin rectangular frames -->
+    <rect x="269" y="88" width="28" height="21" rx="8" fill="{C['lens']}" fill-opacity=".1" stroke="{C['frame']}" stroke-width="1.7"/>
+    <rect x="303" y="88" width="28" height="21" rx="8" fill="{C['lens']}" fill-opacity=".1" stroke="{C['frame']}" stroke-width="1.7"/>
+    
+    
+    <path d="M297,95 Q300,93 303,95 M269,94 L262,91 M331,94 L338,91" fill="none" stroke="{C['frame']}" stroke-width="2" stroke-linecap="round"/>
+    <path d="M273,106 L282,90 M277,106 L284,94 M307,106 L316,90" stroke="#fff" stroke-width="1.4" opacity=".55" stroke-linecap="round"/>
+  </g>
+
+  <!-- desk -->
+  <rect x="0" y="206" width="{W}" height="34" fill="{C['desk']}"/>
+  <rect x="0" y="206" width="{W}" height="2" fill="{C['deskhi']}"/>
+
+  <!-- laptop -->
   <g class="lapout">
-    <path d="M244,160 L320,156 L350,166 L268,172 Z" fill="{C['lid2']}" {L}/>
-    <path d="M268,172 L350,166 L350,170 L268,176 Z" fill="{C['lid3']}" {L}/>
-    <path d="M276,170 L272,167 M284,169 L280,166" stroke="{C['lid3']}" stroke-width="1"/>
-    <path d="M300,162 L340,160 L346,165 L306,167 Z" fill="{C['key']}" opacity=".6"/>
-    <path d="M304,164 L344,162" stroke="{C['lid2']}" stroke-width=".8"/>
     <g class="lid">
-      <path d="M244,160 L306,157 L296,88 L232,94 Z" fill="{C['lid']}" {L}/>
-      <path d="M300,120 L306,157 L276,158 L270,128 Z" fill="{C['lid2']}" opacity=".5"/>
-      <path d="M244,160 L306,157" stroke="{C['lid3']}" stroke-width="2"/>
-      <circle cx="268" cy="124" r="4" fill="{C['sticker']}" {L}/>
+      <rect x="238" y="148" width="124" height="60" rx="5" fill="{C['lid']}" {L}/>
+      <path d="M326,149 L361,149 L361,207 L306,207 Z" fill="{C['lid2']}" opacity=".6"/>
+      <circle cx="300" cy="176" r="5" fill="{C['sticker']}" {L}/>
     </g>
-    <path d="M250,170 C230,176 200,172 180,186 C166,196 170,214 160,240" fill="none" stroke="#4d4552" stroke-width="2"/>
+    <rect x="228" y="206" width="144" height="5" rx="2" fill="{C['lid2']}" {L}/>
   </g>
   <g class="typing">
-    <path d="M384,168 C368,164 350,160 334,158 L332,168 C348,172 364,178 380,184 Z" fill="{C['blouse']}" {L}/>
-    <path d="M336,157 L334,169" stroke="{C['blouse2']}" stroke-width="3"/>
-    <path class="tap" d="M334,158 C326,155 316,156 312,161 C310,164 314,166 320,165 L334,168 Z" fill="{C['skin']}" {L}/>
+    <path class="tap" d="M216,207 C215,197 226,193 236,198 L238,207 Z" fill="{C['skin']}" {L}/>
+    <path class="tap tap2" d="M384,207 C385,197 374,193 364,198 L362,207 Z" fill="{C['skin']}" {L}/>
   </g>
 
-  <!-- breadboard on the desk -->
+  <!-- breadboard -->
   <g class="board">
-    <path d="M236,150 L322,148 L338,162 L250,164 Z" fill="{C['board']}" {L}/>
-    <path d="M250,164 L338,162 L338,167 L250,169 Z" fill="{C['hole']}" {L}/>
-    <path d="M244,156 L330,154.5" stroke="{C['hole']}" stroke-width="1.2"/>
-    {"".join(f'<circle cx="{242 + i*4.2 + j*2.4:.1f}" cy="{151.5 + j*2.6 - i*0.05:.1f}" r=".7" fill="{C["hole"]}"/>' for i in range(20) for j in range(4))}
-    <path d="M276,153 L298,152.5 L300,158 L278,158.5 Z" fill="{C['chip']}" {L}/>
-    <path d="M246,158 C246,138 262,138 266,154" fill="none" stroke="{C['red']}" stroke-width="2" stroke-linecap="round"/>
-    <path d="M306,154 C312,138 326,140 328,158" fill="none" stroke="{C['blu']}" stroke-width="2" stroke-linecap="round"/>
-    <path d="M254,142 v10 M264,142 v10 M318,142 v10" stroke="{C['metal']}" stroke-width="1.4"/>
-    <g class="led"><circle cx="254" cy="138" r="9" fill="{C['red']}" opacity=".3"/><circle cx="254" cy="138" r="4" fill="{C['red']}" {L}/></g>
-    <g class="led l2"><circle cx="264" cy="138" r="9" fill="{C['yel']}" opacity=".3"/><circle cx="264" cy="138" r="4" fill="{C['yel']}" {L}/></g>
-    <g class="led l3"><circle cx="318" cy="138" r="9" fill="{C['grn']}" opacity=".3"/><circle cx="318" cy="138" r="4" fill="{C['grn']}" {L}/></g>
+    <rect x="228" y="178" width="144" height="30" rx="3" fill="{C['board']}" {L}/>
+    <line x1="232" y1="193" x2="368" y2="193" stroke="{C['hole']}" stroke-width="1.6"/>
+    {"".join(f'<circle cx="{236 + i*6.6:.1f}" cy="{183 + j*5 + (5 if j > 1 else 0)}" r=".9" fill="{C["hole"]}"/>' for i in range(21) for j in range(4))}
+    <rect x="282" y="185" width="36" height="15" rx="1.5" fill="{C['chip']}" {L}/>
+    <path d="M240,200 C242,168 270,166 278,192" fill="none" stroke="{C['red']}" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M322,192 C330,166 356,168 360,200" fill="none" stroke="{C['blu']}" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M250,170 v12 M264,170 v12 M346,170 v12" stroke="{C['metal']}" stroke-width="1.6"/>
+    <g class="led"><circle cx="250" cy="165" r="11" fill="{C['red']}" opacity=".3"/><circle cx="250" cy="165" r="5" fill="{C['red']}" {L}/></g>
+    <g class="led l2"><circle cx="264" cy="165" r="11" fill="{C['yel']}" opacity=".3"/><circle cx="264" cy="165" r="5" fill="{C['yel']}" {L}/></g>
+    <g class="led l3"><circle cx="346" cy="165" r="11" fill="{C['grn']}" opacity=".3"/><circle cx="346" cy="165" r="5" fill="{C['grn']}" {L}/></g>
   </g>
   <g class="bhands">
-    <path d="M384,170 C372,160 362,150 352,144 L344,152 C354,160 364,172 378,184 Z" fill="{C['blouse']}" {L}/>
+    <path d="M218,207 C216,197 228,193 236,198 L238,207 Z" fill="{C['skin']}" {L}/>
+    <path d="M376,170 C392,158 400,170 424,206" fill="none" stroke="{C['phones']}" stroke-width="2"/>
+    <path d="M342,207 L358,174 L374,179 L362,207 Z" fill="{C['knit']}" {L}/>
     <g class="iron">
-      <path d="M302,157 L322,149" stroke="{C['metal']}" stroke-width="2.4" stroke-linecap="round"/>
-      <path d="M320,146 L362,130 L366,138 L324,154 Z" fill="{C['grip']}" {L}/>
-      <path d="M362,134 C380,128 392,140 400,150" fill="none" stroke="#4d4552" stroke-width="2"/>
-      <path d="M338,146 C336,136 350,132 354,140 C357,147 348,152 342,152 Z" fill="{C['skin']}" {L}/>
+      <path d="M318,192 L334,182" stroke="{C['metal']}" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M332,178 L384,156 L388,166 L336,188 Z" fill="{C['grip']}" {L}/>
+      <path d="M362,168 C362,156 380,152 384,162 C388,172 374,180 366,178 Z" fill="{C['skin']}" {L}/>
       <g class="spark" stroke="{C['yel']}" stroke-width="2" stroke-linecap="round">
-        <path d="M298,157 l-6,-2 M299,160 l-4,5 M303,161 l2,5"/>
+        <path d="M313,193 l-7,-3 M315,197 l-5,6 M320,197 l3,6"/>
       </g>
-      <circle class="smoke" cx="302" cy="150" r="3" fill="#ddd4e2"/>
-      <circle class="smoke s2" cx="305" cy="150" r="2.6" fill="#ddd4e2"/>
+      <circle class="smoke" cx="318" cy="184" r="3.2" fill="#d4cde0"/>
+      <circle class="smoke s2" cx="321" cy="184" r="2.8" fill="#d4cde0"/>
     </g>
-  </g>
   </g>
 
   <!-- subtitle -->
