@@ -18,7 +18,7 @@ P = dict(
     paper="#e9e1d1", wave="#8b6cf0", pin="#e8606f", sticky="#f1d77a", stickyln="#b8963a", card="#cfe0db", cardln="#8aa09a",
     # her
     skin="#f6d6c4", skin2="#e3ae9e", blush="#ec8f9a", lip="#d9707e", mouth="#8c3a4a",
-    hair="#5e3f2c", hair2="#43291e", hair3="#87613f", hairend="#a0714a",
+    hair="#5e3f2c", hair2="#43291e", hair3="#87613f",
     eye="#5f8a63", pupil="#1f2a1f", white="#ffffff", lash="#231a20", frame="#7a6555",
     top="#7a2f3c", top2="#5c2230",
     # props
@@ -106,7 +106,7 @@ def her():
         else:
             wave = (0, 0, 1, 1, 0, 0, -1, -1)[y % 8] if y > 18 else 0
             a, b = 50 - wave + (1 if y > 33 else 0), 69 + wave - (1 if y > 33 else 0)
-        rect(px, a, y, b, y, "hairend" if y >= 31 else "hair")
+        rect(px, a, y, b, y, "hair")
     # shadow side of the hair
     for y in range(12, 31):
         px[(68 + ((0, 0, 1, 1, 0, 0, -1, -1)[y % 8] if y > 18 else 0), y)] = "hair2"
@@ -137,11 +137,11 @@ def her():
     # hair over the shoulders, wavy, caramel ends
     for y in range(22, 37):
         wave = (0, 1, 1, 0, -1, -1)[y % 6]
-        col = "hairend" if y >= 31 else "hair"
+        col = "hair"
         rect(px, 50 + wave, y, 53 + wave, y, col); rect(px, 66 - wave, y, 69 - wave, y, col)
         if y % 3 == 0:
-            px[(52 + wave, y)] = "hair2" if y < 31 else "hair"
-            px[(67 - wave, y)] = "hair2" if y < 31 else "hair"
+            px[(52 + wave, y)] = "hair2"
+            px[(67 - wave, y)] = "hair2"
     return px
 
 # ------------------------------------------------------------- moving layers
