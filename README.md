@@ -8,15 +8,15 @@
 
 <br>
 
-I'm a PhD researcher in HCI at **Politecnico di Milano** and a design engineer at **Elysia Solutions**. Most of my work is speech AI for people with atypical voices and health devices that keep data in the user's hands. I study a problem, build something for it, then test it with real people. Seven years in, 10+ peer-reviewed papers.
+I'm an HCI researcher at **Politecnico di Milano** and a design engineer at **Elysia Solutions**. Most of my work is speech AI for people with atypical voices and health devices that keep data in the user's hands. I study a problem, build something for it, then test it with real people. Seven years in, 10+ peer-reviewed papers.
 
 <br>
 
 <a href="https://danserme.github.io/danserme/">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./flock.svg">
-    <source media="(prefers-color-scheme: light)" srcset="./flock-light.svg">
-    <img src="./flock.svg" alt="A murmuration of dots swirls, spells ciao, and scatters. Click to play with it." width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="./avatar.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./avatar-light.svg">
+    <img src="./avatar.svg" alt="Animated me at my desk, switching between coding on a laptop and soldering a breadboard. Click to play." width="100%">
   </picture>
 </a>
 
