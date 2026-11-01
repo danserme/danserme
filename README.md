@@ -13,7 +13,7 @@ I'm an HCI researcher at **Politecnico di Milano** and a design engineer at **El
 <br>
 
 <a href="https://danserme.github.io/danserme/">
-  <img src="./avatar.svg" alt="90s anime-style me at my desk, switching between coding on a laptop and soldering a breadboard. Click to play." width="100%">
+  <img src="./avatar.svg" alt="Pixel-art me at my desk, switching between coding on a laptop and soldering a breadboard. Click to play." width="100%">
 </a>
 
 <br>
