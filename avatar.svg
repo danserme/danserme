@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="240" viewBox="0 0 600 240" role="img" aria-label="Retro anime-style illustration of Polina at her desk, switching between typing on a laptop and soldering a breadboard with blinking LEDs. She says ciao.">
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="240" viewBox="0 0 600 240" role="img" aria-label="90s anime-style illustration of Polina at her desk, switching between typing on a laptop and soldering a breadboard. A subtitle reads: Ciao.">
 <style>
 .lapout { animation: lapout 12s ease-in-out infinite; }
 @keyframes lapout { 0%,42% { transform: translateX(0); opacity: 1 } 48%,92% { transform: translateX(-90px); opacity: 0 } 96%,100% { transform: translateX(0); opacity: 1 } }
@@ -8,7 +8,7 @@
 @keyframes typing { 0%,37% { opacity: 1 } 39%,97% { opacity: 0 } 99%,100% { opacity: 1 } }
 .tap { animation: tap .24s ease-in-out infinite alternate; }
 .tap2 { animation-delay: .12s; }
-@keyframes tap { to { transform: translateY(-3px) } }
+@keyframes tap { to { transform: translateY(-2.5px) } }
 .board { animation: board 12s ease-in-out infinite; }
 @keyframes board { 0%,47% { transform: translateX(90px); opacity: 0 } 53%,88% { transform: translateX(0); opacity: 1 } 93%,100% { transform: translateX(90px); opacity: 0 } }
 .bhands { animation: bhands 12s linear infinite; }
@@ -19,182 +19,192 @@
 @keyframes spark { 50% { opacity: 0 } }
 .smoke { opacity: 0; animation: smoke 1.8s ease-out infinite; }
 .smoke.s2 { animation-delay: .9s; }
-@keyframes smoke { 0% { opacity: 0; transform: translate(0,0) } 25% { opacity: .7 } 100% { opacity: 0; transform: translate(5px,-22px) } }
+@keyframes smoke { 0% { opacity: 0; transform: translate(0,0) } 25% { opacity: .6 } 100% { opacity: 0; transform: translate(5px,-22px) } }
 .led { animation: led 1.2s steps(1) infinite; }
 .led.l2 { animation-delay: .4s } .led.l3 { animation-delay: .8s }
-@keyframes led { 0% { opacity: 1 } 33% { opacity: .2 } }
-
-.blink { transform-box: fill-box; transform-origin: 50% 60%; animation: blink 4.2s infinite; }
-@keyframes blink { 0%,92%,100% { transform: scaleY(1) } 95% { transform: scaleY(.08) } }
+@keyframes led { 0% { opacity: 1 } 33% { opacity: .25 } }
+.head { transform-box: view-box; transform-origin: 300px 150px; animation: head 12s ease-in-out infinite; }
+@keyframes head { 0%,38% { transform: rotate(-1.5deg) } 46% { transform: rotate(0) } 54%,86% { transform: rotate(2.5deg) } 94%,100% { transform: rotate(-1.5deg) } }
+.blink { transform-box: fill-box; transform-origin: 50% 40%; animation: blink 4.6s infinite; }
+@keyframes blink { 0%,92%,100% { transform: scaleY(1) } 95% { transform: scaleY(.1) } }
 .look { animation: look 12s ease-in-out infinite; }
-@keyframes look { 0%,38% { transform: translate(0,2.5px) } 44%,48% { transform: translate(0,0) } 54%,86% { transform: translate(2.5px,3px) } 92%,94% { transform: translate(0,0) } 100% { transform: translate(0,2.5px) } }
-.glint { animation: glint 6s ease-in-out infinite; }
-@keyframes glint { 0%,40% { transform: translateX(-60px) } 52%,100% { transform: translateX(60px) } }
-.bubble { transform-box: fill-box; transform-origin: 0% 100%; animation: bubble 12s ease-out infinite; }
-@keyframes bubble { 0% { opacity: 0; transform: scale(.5) } 3%,15% { opacity: 1; transform: scale(1) } 18%,100% { opacity: 0; transform: scale(1) } }
-.mopen { animation: mopen 12s steps(1) infinite; }
+@keyframes look { 0%,38% { transform: translate(0,1.8px) } 44%,48% { transform: translate(0,0) } 54%,86% { transform: translate(2px,2px) } 92%,94% { transform: translate(0,0) } 100% { transform: translate(0,1.8px) } }
+.sub, .mopen { animation: sub 12s steps(1) infinite; }
 .mshut { animation: mshut 12s steps(1) infinite; }
-@keyframes mopen { 0% { opacity: 1 } 15% { opacity: 0 } }
-@keyframes mshut { 0% { opacity: 0 } 15% { opacity: 1 } }
+@keyframes sub { 0% { opacity: 0 } 2% { opacity: 1 } 16% { opacity: 0 } }
+@keyframes mshut { 0% { opacity: 1 } 2% { opacity: 0 } 6% { opacity: 1 } }
+.mopen { animation-name: mopen; }
+@keyframes mopen { 0% { opacity: 0 } 2% { opacity: 1 } 6% { opacity: 0 } }
 .sway { transform-box: fill-box; transform-origin: 50% 0%; animation: sway 3.5s ease-in-out infinite alternate; }
 .sway.r { animation-delay: -1.7s; }
-@keyframes sway { from { transform: rotate(-1.5deg) } to { transform: rotate(1.5deg) } }
-
+@keyframes sway { from { transform: rotate(-1.2deg) } to { transform: rotate(1.2deg) } }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; }
-  .board, .bhands, .bubble, .smoke, .mopen { opacity: 0; }
+  .board, .bhands, .smoke, .mopen, .sub { opacity: 0; }
 }
 </style>
 <defs>
-  <clipPath id="card"><rect width="600" height="240" rx="18"/></clipPath>
-  <clipPath id="lenses"><rect x="266" y="86" width="30" height="24" rx="7"/><rect x="304" y="86" width="30" height="24" rx="7"/></clipPath>
+  <clipPath id="card"><rect width="600" height="240" rx="14"/></clipPath>
+  <radialGradient id="vig" cx=".5" cy=".45" r=".75"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#140c1c" stop-opacity=".55"/></radialGradient>
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4" stitchTiles="stitch"/>
+    <feColorMatrix values="0 0 0 0 .5  0 0 0 0 .45  0 0 0 0 .55  0 0 0 .14 0"/>
+  </filter>
 </defs>
 <g clip-path="url(#card)">
-  <rect width="600" height="240" fill="#1f1c27"/>
-  
-  <!-- shelf with things from my projects -->
-  <rect x="34" y="96" width="170" height="7" rx="2" fill="#5a5068" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M60,103 L60,116 L72,103 M178,103 L178,116 L166,103" fill="none" stroke="#5a5068" stroke-width="2.2" stroke-linejoin="round"/>
-  <!-- vera: microphone -->
-  <ellipse cx="68" cy="94" rx="14" ry="3.5" fill="#4a4258" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M68,92 L68,72" stroke="#2a1426" stroke-linejoin="round" stroke-linecap="round" stroke-width="3"/>
-  <rect x="59" y="40" width="18" height="32" rx="9" fill="#cfc8dc" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M61,50 H75 M61,56 H75 M61,62 H75" stroke="#8d86a0" stroke-width="1.4"/>
-  <!-- AI-musicGen-glove: fabric glove with bend sensors -->
-  <path d="M104,96 L104,74 C100,72 99,64 102,62 L106,62 L106,50 C106,46 111,46 111,50 L111,60 L113,46 C113,42 118,42 118,46 L117,60 L120,48 C120,44 125,45 124,49 L122,62 L126,54 C127,50 132,51 131,55 L126,74 L126,96 Z" fill="#9fd3c7" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M109,66 L109,88 M115,64 L115,88 M121,66 L121,88" stroke="#5e8f84" stroke-width="1.6" stroke-dasharray="3 2"/>
-  <path d="M126,90 C138,92 136,102 146,100" fill="none" stroke="#ff8fb1" stroke-width="2"/>
-  <!-- cipher.pal: fidget device -->
-  <path d="M152,96 C150,80 160,72 172,72 C186,72 194,80 192,96 Z" fill="#ffd9a8" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <circle cx="172" cy="84" r="6" fill="#fff4e3" stroke="#2a1426" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.6"/>
-  <circle class="led" cx="184" cy="90" r="2" fill="#8b6cf0"/>
+  <!-- wall, window light, desk -->
+  <rect width="600" height="240" fill="#5b5472"/>
+  <path d="M96,0 L196,0 L150,120 L50,120 Z" fill="#ffffff" opacity=".06"/>
+  <path d="M206,0 L236,0 L190,120 L160,120 Z" fill="#ffffff" opacity=".04"/>
 
-  <!-- pinned sketch of a waveform + a sticky note -->
-  <rect x="454" y="34" width="92" height="66" fill="#e9e4da" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M464,70 L472,70 L475,60 L479,82 L483,50 L487,88 L491,58 L495,76 L499,64 L503,72 L507,68 L536,68" fill="none" stroke="#8b6cf0" stroke-width="2" stroke-linejoin="round"/>
-  <path d="M464,88 H494 M464,93 H486" stroke="#b9b0c8" stroke-width="1.6" stroke-linecap="round"/>
-  <circle cx="500" cy="38" r="3.5" fill="#ff5a6e" stroke="#2a1426" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.4"/>
-  <rect x="536" y="82" width="34" height="32" fill="#ffe27a" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M542,92 H562 M542,99 H558 M542,106 H554" stroke="#b8963a" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- shelf: microphone (vera), sensor glove, cipher.pal -->
+  <rect x="34" y="100" width="164" height="6" fill="#6b6382" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <ellipse cx="66" cy="98" rx="13" ry="3" fill="#4a4358" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M66,96 L66,78" stroke="#2b1f2e" stroke-linejoin="round" stroke-linecap="round" stroke-width="3"/>
+  <rect x="58" y="48" width="16" height="30" rx="8" fill="#b9b2c9" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M60,57 H72 M60,63 H72 M60,69 H72" stroke="#8a8399" stroke-width="1.2"/>
+  <path d="M100,100 L100,80 C96,78 95,70 98,68 L102,68 L102,56 C102,52 107,52 107,56 L107,66 L109,52 C109,48 114,48 114,52 L113,66 L116,54 C116,50 121,51 120,55 L118,68 L122,60 C123,56 128,57 127,61 L122,80 L122,100 Z" fill="#8fb3aa" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M105,72 V94 M111,70 V94 M117,72 V94" stroke="#5f857c" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <path d="M148,100 C146,84 156,76 168,76 C182,76 190,84 188,100 Z" fill="#dcbf9d" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="168" cy="88" r="5.5" fill="#efe4d4" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- pinned waveform sketch -->
+  <rect x="470" y="40" width="88" height="62" fill="#e7e0d2" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M478,74 H486 L489,64 L493,86 L497,54 L501,92 L505,62 L509,80 L513,68 L517,76 L521,72 H550" fill="none" stroke="#7d6fae" stroke-width="1.6" stroke-linejoin="round"/>
+  <circle cx="514" cy="44" r="3" fill="#e8606f" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- her shadow cast on the wall -->
+  <g transform="translate(22,8)" fill="#433d58">
+    <path d="M300,30 C266,30 246,52 244,86 C242,120 236,150 230,182 L240,176 L238,206 L252,190 L256,216 L266,196 L272,210 L280,190 L320,190 L328,210 L334,196 L344,216 L348,190 L362,206 L360,176 L370,182 C364,150 358,120 356,86 C354,52 334,30 300,30 Z"/><path d="M226,240 C230,188 252,168 288,160 L312,160 C348,168 370,188 374,240 Z"/>
+  </g>
 
   <!-- character -->
-  <path d="M300,34 C262,34 246,58 246,92 C246,120 238,140 244,162 C250,182 238,196 246,214 L354,214 C362,196 350,182 356,162 C362,140 354,120 354,92 C354,58 338,34 300,34 Z" fill="#5a3b1f" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M290,128 L290,162 L310,162 L310,128 Z" fill="#fde0cc" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M290,132 C296,142 304,142 310,132 L310,146 C304,150 296,150 290,146 Z" fill="#f2b8a0"/>
-  <path d="M222,240 C226,192 252,170 288,160 L312,160 C348,170 374,192 378,240 Z" fill="#8b6cf0" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M340,172 C360,186 372,206 376,240 L346,240 C346,214 344,192 340,172 Z" fill="#6c4fd6"/>
-  <path d="M286,160 C292,172 308,172 314,160" fill="#ffffff" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <g class="sway"><path d="M262,128 C254,150 262,168 254,186 C248,200 254,210 248,220 C258,216 266,204 266,190 C266,174 274,160 270,140 Z" fill="#7a5530" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></g>
-  <g class="sway r"><path d="M338,128 C346,150 338,168 346,186 C352,200 346,210 352,220 C342,216 334,204 334,190 C334,174 326,160 330,140 Z" fill="#7a5530" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/></g>
+  <path d="M300,30 C266,30 246,52 244,86 C242,120 236,150 230,182 L240,176 L238,206 L252,190 L256,216 L266,196 L272,210 L280,190 L320,190 L328,210 L334,196 L344,216 L348,190 L362,206 L360,176 L370,182 C364,150 358,120 356,86 C354,52 334,30 300,30 Z" fill="#5d4847" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M291,128 L291,162 L309,162 L309,128 Z" fill="#f2d8cb" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M292,132 L308,132 L308,152 C302,147 296,147 292,149 Z" fill="#d6aab0"/>
+  <path d="M226,240 C230,188 252,168 288,160 L312,160 C348,168 370,188 374,240 Z" fill="#e2d5c0" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M336,168 C356,180 366,198 370,240 L344,240 C344,210 342,188 336,168 Z" fill="#b7a597"/>
+  <path d="M288,160 C294,171 306,171 312,160 Z" fill="#f2d8cb"/>
+  <path d="M284,159 C290,175 310,175 316,159 M287,163 C292,178 308,178 313,163" fill="none" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <g class="sway"><path d="M262,140 C256,160 258,178 250,196 L246,214 L258,200 C262,206 266,210 271,215 C268,196 272,176 270,156 Z" fill="#8d6f55" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M262,150 C258,170 260,186 254,204" fill="none" stroke="#5d4847" stroke-width="1"/></g>
+  <g class="sway r"><path d="M338,140 C344,160 342,178 350,196 L354,214 L342,200 C338,206 334,210 329,215 C332,196 328,176 330,156 Z" fill="#5d4847" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></g>
 
-  <path d="M268,74 C266,104 274,126 300,142 C326,126 334,104 332,74 C320,60 280,60 268,74 Z" fill="#fde0cc" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M268,76 C278,68 290,64 300,64 C310,64 322,68 332,76 C322,72 310,70 300,70 C290,70 278,72 268,76 Z" fill="#f2b8a0" opacity=".8"/>
-  <path d="M300,38 C280,38 266,50 262,72 C258,96 262,118 256,140 C252,152 250,160 246,168 C258,160 266,146 270,128 C274,108 272,86 280,66 C286,52 294,44 300,40 Z" fill="#7a5530" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M300,38 C320,38 334,50 338,72 C342,96 338,118 344,140 C348,152 350,160 354,168 C342,160 334,146 330,128 C326,108 328,86 320,66 C314,52 306,44 300,40 Z" fill="#7a5530" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M300,36 C276,36 262,48 258,64 C270,52 284,46 300,46 C316,46 330,52 342,64 C338,48 324,36 300,36 Z" fill="#7a5530" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <path d="M266,58 C276,46 290,42 300,42 C292,48 282,54 272,66 Z" fill="#b08250"/>
-  <path d="M334,58 C324,46 310,42 300,42 C308,48 318,54 328,66 Z" fill="#b08250"/>
-  <path d="M300,38 L300,48" stroke="#5a3b1f" stroke-width="2" stroke-linecap="round"/>
+  <!-- headphones resting around the neck -->
+  <path d="M264,152 Q300,184 336,152" fill="none" stroke="#2f2a3b" stroke-width="5" stroke-linecap="round"/>
+  <rect x="252" y="138" width="16" height="24" rx="7" fill="#2f2a3b" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="332" y="138" width="16" height="24" rx="7" fill="#2f2a3b" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+  <rect x="256" y="143" width="7" height="14" rx="3.5" fill="#c98a9a"/>
+  <rect x="337" y="143" width="7" height="14" rx="3.5" fill="#c98a9a"/>
 
-  <path d="M272,80 Q281,75 290,79 M310,79 Q319,75 328,80" fill="none" stroke="#5a3b1f" stroke-width="2.4" stroke-linecap="round"/>
-  
-      <g class="blink">
-        <path d="M270,94 C275,84 287,84 292,93" fill="none" stroke="#2a1426" stroke-width="3.2" stroke-linecap="round"/>
-        <g class="look">
-          <ellipse cx="281" cy="99" rx="6.6" ry="8.4" fill="#6b4426"/>
-          <ellipse cx="281" cy="101" rx="6.6" ry="5.4" fill="#3d2414" opacity=".55"/>
-          <ellipse cx="281" cy="100" rx="2.8" ry="3.6" fill="#3d2414"/>
-          <circle cx="278.4" cy="96" r="2.2" fill="#fff"/>
-          <circle cx="283.6" cy="103" r="1.1" fill="#fff"/>
-        </g>
-        <path d="M275,109 L288,108" stroke="#2a1426" stroke-width="1.4" stroke-linecap="round"/>
-      </g>
-  
-      <g class="blink">
-        <path d="M308,94 C313,84 325,84 330,93" fill="none" stroke="#2a1426" stroke-width="3.2" stroke-linecap="round"/>
-        <g class="look">
-          <ellipse cx="319" cy="99" rx="6.6" ry="8.4" fill="#6b4426"/>
-          <ellipse cx="319" cy="101" rx="6.6" ry="5.4" fill="#3d2414" opacity=".55"/>
-          <ellipse cx="319" cy="100" rx="2.8" ry="3.6" fill="#3d2414"/>
-          <circle cx="316.4" cy="96" r="2.2" fill="#fff"/>
-          <circle cx="321.6" cy="103" r="1.1" fill="#fff"/>
-        </g>
-        <path d="M313,109 L326,108" stroke="#2a1426" stroke-width="1.4" stroke-linecap="round"/>
-      </g>
-  <g stroke="#ff7f9f" stroke-width="1.6" stroke-linecap="round" opacity=".8">
-    <path d="M273,117 l3,-5 M278,117 l3,-5 M283,117 l3,-5 M317,117 l3,-5 M322,117 l3,-5 M327,117 l3,-5"/>
-  </g>
-  <path d="M302,108 L300,116 L303,116" fill="none" stroke="#f2b8a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path class="mshut" d="M294,126 Q300,129 306,126" fill="none" stroke="#2a1426" stroke-width="2" stroke-linecap="round"/>
-  <path class="mopen" d="M293,124 Q300,123 307,124 Q306,133 300,133 Q294,133 293,124 Z" fill="#c2405f" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <g class="head">
+    <path d="M273,70 C272,96 280,118 296,136 Q300,141 304,136 C320,118 328,96 327,70 C316,58 284,58 273,70 Z" fill="#f2d8cb" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M327,74 C328,98 320,118 304,136 Q301,139 299,138 C312,122 320,104 318,80 Z" fill="#d6aab0" opacity=".85"/>
+    <path d="M300,31 C276,31 257,46 254,74 C250,100 256,124 250,148 C247,160 244,170 240,180 L252,172 L250,190 L262,172 C270,150 270,128 272,108 C274,88 281,70 300,57 Z" fill="#8d6f55" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M300,31 C324,31 343,46 346,74 C350,100 344,124 350,148 C353,160 356,170 360,180 L348,172 L350,190 L338,172 C330,150 330,128 328,108 C326,88 319,70 300,57 Z" fill="#8d6f55" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M300,31 C324,31 343,46 346,74 C350,100 344,124 350,148 C353,160 356,170 360,180 L348,172 L350,190 L338,172 C330,150 330,128 328,108 C326,88 319,70 300,57 Z" fill="#5d4847" opacity=".3"/>
+    <path d="M300,57 C281,70 274,88 272,108 C270,128 270,150 262,172 C264,150 265,128 266,108 C268,86 278,68 300,57 Z" fill="#5d4847"/>
+    <path d="M300,57 C319,70 326,88 328,108 C330,128 330,150 338,172 C336,150 335,128 334,108 C332,86 322,68 300,57 Z" fill="#5d4847"/>
+    <path d="M276,46 C266,62 262,92 260,124" fill="none" stroke="#5d4847" stroke-width="1" stroke-linecap="round" opacity=".8"/><path d="M288,40 C276,52 268,76 266,100" fill="none" stroke="#5d4847" stroke-width="1" stroke-linecap="round" opacity=".8"/><path d="M324,46 C334,62 338,92 340,124" fill="none" stroke="#5d4847" stroke-width="1" stroke-linecap="round" opacity=".8"/><path d="M312,40 C324,52 332,76 334,100" fill="none" stroke="#5d4847" stroke-width="1" stroke-linecap="round" opacity=".8"/>
+    <path d="M260,66 C265,50 278,40 294,36 L290,42 L296,43 C283,47 274,55 270,66 L267,61 L264,70 Z" fill="#cdb291"/>
+    <path d="M340,66 C335,50 322,40 306,36 L310,42 L304,43 C317,47 326,55 330,66 L333,61 L336,70 Z" fill="#cdb291" opacity=".45"/>
+    <path d="M300,32 L300,56" stroke="#2b1f2e" stroke-width="1.2" stroke-linecap="round"/>
 
-  <!-- glasses -->
-  <rect x="266" y="86" width="30" height="24" rx="7" fill="#cfe7ff" fill-opacity=".22" stroke="#2a1426" stroke-width="2.4"/>
-  <rect x="304" y="86" width="30" height="24" rx="7" fill="#cfe7ff" fill-opacity=".22" stroke="#2a1426" stroke-width="2.4"/>
-  <path d="M296,95 Q300,92 304,95 M266,94 L258,90 M334,94 L342,90" fill="none" stroke="#2a1426" stroke-width="2.4" stroke-linecap="round"/>
-  <g clip-path="url(#lenses)"><g class="glint"><path d="M276,82 L288,82 L270,114 L258,114 Z M292,82 L297,82 L279,114 L274,114 Z" fill="#fff" opacity=".75"/></g><g class="glint"><path d="M314,82 L326,82 L308,114 L296,114 Z M330,82 L335,82 L317,114 L312,114 Z" fill="#fff" opacity=".75"/></g></g>
+    <path d="M276,85 C282,81 290,81 296,83 M324,85 C318,81 310,81 304,83" fill="none" stroke="#5d4847" stroke-width="1.6" stroke-linecap="round"/>
+    
+    <clipPath id="e287"><path d="M276,99 C280,94 292,93.5 297,97.5 C293,102 282,103 276,99 Z"/></clipPath>
+    <g class="blink">
+      <path d="M276,99 C280,94 292,93.5 297,97.5 C293,102 282,103 276,99 Z" fill="#f6efe9"/>
+      <g clip-path="url(#e287)"><g class="look">
+        <ellipse cx="287" cy="99.5" rx="6" ry="6.4" fill="#5a4757"/>
+        <ellipse cx="287" cy="98" rx="6" ry="3" fill="#2f2232" opacity=".5"/>
+        <ellipse cx="287" cy="100" rx="2.6" ry="3.4" fill="#2f2232"/>
+        <circle cx="284.8" cy="97.4" r="1.2" fill="#fff"/>
+      </g></g>
+      <path d="M275,98.5 C280,93 292,92 296,97" fill="none" stroke="#2b1f2e" stroke-width="2.8" stroke-linecap="round"/>
+      <path d="M276,98 L272,95.5" stroke="#2b1f2e" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M279,102.5 Q287,104.5 294,101.5" fill="none" stroke="#2b1f2e" stroke-width="1" opacity=".6"/>
+      <path d="M278,92.5 C287,88.5 293,89.5 296,92" fill="none" stroke="#2b1f2e" stroke-width=".9" opacity=".55"/>
+    </g>
+    
+    <clipPath id="e313"><path d="M324,99 C320,94 308,93.5 303,97.5 C307,102 318,103 324,99 Z"/></clipPath>
+    <g class="blink">
+      <path d="M324,99 C320,94 308,93.5 303,97.5 C307,102 318,103 324,99 Z" fill="#f6efe9"/>
+      <g clip-path="url(#e313)"><g class="look">
+        <ellipse cx="313" cy="99.5" rx="6" ry="6.4" fill="#5a4757"/>
+        <ellipse cx="313" cy="98" rx="6" ry="3" fill="#2f2232" opacity=".5"/>
+        <ellipse cx="313" cy="100" rx="2.6" ry="3.4" fill="#2f2232"/>
+        <circle cx="310.8" cy="97.4" r="1.2" fill="#fff"/>
+      </g></g>
+      <path d="M325,98.5 C320,93 308,92 304,97" fill="none" stroke="#2b1f2e" stroke-width="2.8" stroke-linecap="round"/>
+      <path d="M324,98 L328,95.5" stroke="#2b1f2e" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M321,102.5 Q313,104.5 306,101.5" fill="none" stroke="#2b1f2e" stroke-width="1" opacity=".6"/>
+      <path d="M322,92.5 C313,88.5 307,89.5 304,92" fill="none" stroke="#2b1f2e" stroke-width=".9" opacity=".55"/>
+    </g>
+    <path d="M276,115 l3,-4 M280,115 l3,-4 M284,115 l3,-4 M316,115 l3,-4 M320,115 l3,-4 M324,115 l3,-4" stroke="#d98896" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+    <path d="M302,104 L304,115 L300,117" fill="none" stroke="#d6aab0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="mshut" d="M296,126.5 Q300,127.5 304,126.5" fill="none" stroke="#2b1f2e" stroke-width="1.4" stroke-linecap="round"/>
+    <path class="mshut" d="M297.5,128.5 Q300,129.6 302.5,128.5" fill="none" stroke="#c46a78" stroke-width="1.4" stroke-linecap="round"/>
+    <path class="mopen" d="M296,126 Q300,125.5 304,126 Q303,131 300,131 Q297,131 296,126 Z" fill="#c46a78" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
 
-  <!-- headphones around the neck -->
-  <path d="M262,156 Q300,190 338,156" fill="none" stroke="#2f2440" stroke-width="6" stroke-linecap="round"/>
-  <rect x="250" y="142" width="18" height="26" rx="8" fill="#2f2440" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <rect x="332" y="142" width="18" height="26" rx="8" fill="#2f2440" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  <rect x="255" y="147" width="8" height="16" rx="4" fill="#ff8fb1"/>
-  <rect x="337" y="147" width="8" height="16" rx="4" fill="#ff8fb1"/>
-
-  <g class="bubble">
-    <path d="M384,30 C384,16 400,8 428,8 C458,8 474,16 474,30 C474,44 458,52 428,52 C418,52 410,51 404,49 L390,60 L394,46 C388,42 384,37 384,30 Z" fill="#ffffff" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-    <text x="429" y="37" text-anchor="middle" font-family="ui-rounded,'Arial Rounded MT Bold',ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-weight="800" font-size="20" fill="#2a1426">ciao!</text>
+    <!-- glasses: thin rectangular frames -->
+    <rect x="270" y="89" width="28" height="18" rx="4" fill="#d7defa" fill-opacity=".12" stroke="#2b1f2e" stroke-width="1.5"/>
+    <rect x="302" y="89" width="28" height="18" rx="4" fill="#d7defa" fill-opacity=".12" stroke="#2b1f2e" stroke-width="1.5"/>
+    <path d="M298,95 Q300,93.5 302,95 M270,94 L263,91 M330,94 L337,91" fill="none" stroke="#2b1f2e" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M274,105 L282,91 M278,105 L284,94 M306,105 L314,91" stroke="#fff" stroke-width="1.4" opacity=".55" stroke-linecap="round"/>
   </g>
 
   <!-- desk -->
-  <rect x="0" y="206" width="600" height="34" fill="#2c2735"/>
-  <rect x="0" y="206" width="600" height="3" fill="#3a3445"/>
+  <rect x="0" y="206" width="600" height="34" fill="#3b3249"/>
+  <rect x="0" y="206" width="600" height="2" fill="#4c425c"/>
 
   <!-- laptop -->
   <g class="lapout">
     <g class="lid">
-      <rect x="236" y="146" width="128" height="62" rx="8" fill="#ece8f6" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M330,148 L362,148 L362,206 L310,206 Z" fill="#c9c1e0" opacity=".7"/>
-      <path d="M244,154 L258,154" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-      <path d="M300,166 l4,9 l10,1 l-7,7 l2,10 l-9,-5 l-9,5 l2,-10 l-7,-7 l10,-1 Z" fill="#ff8fb1" stroke="#2a1426" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.6"/>
+      <rect x="238" y="148" width="124" height="60" rx="5" fill="#cfc9da" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M326,149 L361,149 L361,207 L306,207 Z" fill="#a9a1bb" opacity=".6"/>
+      <circle cx="300" cy="176" r="5" fill="#c98a9a" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
     </g>
-    <rect x="226" y="205" width="148" height="6" rx="3" fill="#c9c1e0" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="228" y="206" width="144" height="5" rx="2" fill="#a9a1bb" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
   </g>
   <g class="typing">
-    <path class="tap" d="M212,206 C212,194 226,190 234,196 L236,206 Z" fill="#fde0cc" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-    <path class="tap tap2" d="M388,206 C388,194 374,190 366,196 L364,206 Z" fill="#fde0cc" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path class="tap" d="M216,207 C215,197 226,193 236,198 L238,207 Z" fill="#f2d8cb" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path class="tap tap2" d="M384,207 C385,197 374,193 364,198 L362,207 Z" fill="#f2d8cb" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
   </g>
 
   <!-- breadboard -->
   <g class="board">
-    <rect x="228" y="176" width="144" height="32" rx="4" fill="#fbf6ea" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-    <line x1="232" y1="192" x2="368" y2="192" stroke="#c9bfae" stroke-width="2"/>
-    <circle cx="236.0" cy="181" r="1" fill="#c9bfae"/><circle cx="236.0" cy="186" r="1" fill="#c9bfae"/><circle cx="236.0" cy="197" r="1" fill="#c9bfae"/><circle cx="236.0" cy="202" r="1" fill="#c9bfae"/><circle cx="242.6" cy="181" r="1" fill="#c9bfae"/><circle cx="242.6" cy="186" r="1" fill="#c9bfae"/><circle cx="242.6" cy="197" r="1" fill="#c9bfae"/><circle cx="242.6" cy="202" r="1" fill="#c9bfae"/><circle cx="249.2" cy="181" r="1" fill="#c9bfae"/><circle cx="249.2" cy="186" r="1" fill="#c9bfae"/><circle cx="249.2" cy="197" r="1" fill="#c9bfae"/><circle cx="249.2" cy="202" r="1" fill="#c9bfae"/><circle cx="255.8" cy="181" r="1" fill="#c9bfae"/><circle cx="255.8" cy="186" r="1" fill="#c9bfae"/><circle cx="255.8" cy="197" r="1" fill="#c9bfae"/><circle cx="255.8" cy="202" r="1" fill="#c9bfae"/><circle cx="262.4" cy="181" r="1" fill="#c9bfae"/><circle cx="262.4" cy="186" r="1" fill="#c9bfae"/><circle cx="262.4" cy="197" r="1" fill="#c9bfae"/><circle cx="262.4" cy="202" r="1" fill="#c9bfae"/><circle cx="269.0" cy="181" r="1" fill="#c9bfae"/><circle cx="269.0" cy="186" r="1" fill="#c9bfae"/><circle cx="269.0" cy="197" r="1" fill="#c9bfae"/><circle cx="269.0" cy="202" r="1" fill="#c9bfae"/><circle cx="275.6" cy="181" r="1" fill="#c9bfae"/><circle cx="275.6" cy="186" r="1" fill="#c9bfae"/><circle cx="275.6" cy="197" r="1" fill="#c9bfae"/><circle cx="275.6" cy="202" r="1" fill="#c9bfae"/><circle cx="282.2" cy="181" r="1" fill="#c9bfae"/><circle cx="282.2" cy="186" r="1" fill="#c9bfae"/><circle cx="282.2" cy="197" r="1" fill="#c9bfae"/><circle cx="282.2" cy="202" r="1" fill="#c9bfae"/><circle cx="288.8" cy="181" r="1" fill="#c9bfae"/><circle cx="288.8" cy="186" r="1" fill="#c9bfae"/><circle cx="288.8" cy="197" r="1" fill="#c9bfae"/><circle cx="288.8" cy="202" r="1" fill="#c9bfae"/><circle cx="295.4" cy="181" r="1" fill="#c9bfae"/><circle cx="295.4" cy="186" r="1" fill="#c9bfae"/><circle cx="295.4" cy="197" r="1" fill="#c9bfae"/><circle cx="295.4" cy="202" r="1" fill="#c9bfae"/><circle cx="302.0" cy="181" r="1" fill="#c9bfae"/><circle cx="302.0" cy="186" r="1" fill="#c9bfae"/><circle cx="302.0" cy="197" r="1" fill="#c9bfae"/><circle cx="302.0" cy="202" r="1" fill="#c9bfae"/><circle cx="308.6" cy="181" r="1" fill="#c9bfae"/><circle cx="308.6" cy="186" r="1" fill="#c9bfae"/><circle cx="308.6" cy="197" r="1" fill="#c9bfae"/><circle cx="308.6" cy="202" r="1" fill="#c9bfae"/><circle cx="315.2" cy="181" r="1" fill="#c9bfae"/><circle cx="315.2" cy="186" r="1" fill="#c9bfae"/><circle cx="315.2" cy="197" r="1" fill="#c9bfae"/><circle cx="315.2" cy="202" r="1" fill="#c9bfae"/><circle cx="321.8" cy="181" r="1" fill="#c9bfae"/><circle cx="321.8" cy="186" r="1" fill="#c9bfae"/><circle cx="321.8" cy="197" r="1" fill="#c9bfae"/><circle cx="321.8" cy="202" r="1" fill="#c9bfae"/><circle cx="328.4" cy="181" r="1" fill="#c9bfae"/><circle cx="328.4" cy="186" r="1" fill="#c9bfae"/><circle cx="328.4" cy="197" r="1" fill="#c9bfae"/><circle cx="328.4" cy="202" r="1" fill="#c9bfae"/><circle cx="335.0" cy="181" r="1" fill="#c9bfae"/><circle cx="335.0" cy="186" r="1" fill="#c9bfae"/><circle cx="335.0" cy="197" r="1" fill="#c9bfae"/><circle cx="335.0" cy="202" r="1" fill="#c9bfae"/><circle cx="341.6" cy="181" r="1" fill="#c9bfae"/><circle cx="341.6" cy="186" r="1" fill="#c9bfae"/><circle cx="341.6" cy="197" r="1" fill="#c9bfae"/><circle cx="341.6" cy="202" r="1" fill="#c9bfae"/><circle cx="348.2" cy="181" r="1" fill="#c9bfae"/><circle cx="348.2" cy="186" r="1" fill="#c9bfae"/><circle cx="348.2" cy="197" r="1" fill="#c9bfae"/><circle cx="348.2" cy="202" r="1" fill="#c9bfae"/><circle cx="354.8" cy="181" r="1" fill="#c9bfae"/><circle cx="354.8" cy="186" r="1" fill="#c9bfae"/><circle cx="354.8" cy="197" r="1" fill="#c9bfae"/><circle cx="354.8" cy="202" r="1" fill="#c9bfae"/><circle cx="361.4" cy="181" r="1" fill="#c9bfae"/><circle cx="361.4" cy="186" r="1" fill="#c9bfae"/><circle cx="361.4" cy="197" r="1" fill="#c9bfae"/><circle cx="361.4" cy="202" r="1" fill="#c9bfae"/><circle cx="368.0" cy="181" r="1" fill="#c9bfae"/><circle cx="368.0" cy="186" r="1" fill="#c9bfae"/><circle cx="368.0" cy="197" r="1" fill="#c9bfae"/><circle cx="368.0" cy="202" r="1" fill="#c9bfae"/>
-    <rect x="282" y="183" width="36" height="16" rx="2" fill="#2a2236" stroke="#2a1426" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.6"/>
-    <circle cx="288" cy="188" r="1.6" fill="#6b6280"/>
-    <path d="M240,198 C242,166 270,164 278,190" fill="none" stroke="#ff5a6e" stroke-width="3" stroke-linecap="round"/>
-    <path d="M322,190 C330,164 356,166 360,198" fill="none" stroke="#4f8cff" stroke-width="3" stroke-linecap="round"/>
-    <path d="M250,168 v12 M264,168 v12 M346,168 v12" stroke="#8d86a0" stroke-width="2"/>
-    <g class="led"><circle cx="250" cy="163" r="12" fill="#ff5a6e" opacity=".3"/><circle cx="250" cy="163" r="6" fill="#ff5a6e" stroke="#2a1426" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.6"/><circle cx="248" cy="161" r="1.6" fill="#fff"/></g>
-    <g class="led l2"><circle cx="264" cy="163" r="12" fill="#ffd23f" opacity=".3"/><circle cx="264" cy="163" r="6" fill="#ffd23f" stroke="#2a1426" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.6"/><circle cx="262" cy="161" r="1.6" fill="#fff"/></g>
-    <g class="led l3"><circle cx="346" cy="163" r="12" fill="#3ddc84" opacity=".3"/><circle cx="346" cy="163" r="6" fill="#3ddc84" stroke="#2a1426" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.6"/><circle cx="344" cy="161" r="1.6" fill="#fff"/></g>
+    <rect x="228" y="178" width="144" height="30" rx="3" fill="#ece4d4" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <line x1="232" y1="193" x2="368" y2="193" stroke="#b3a796" stroke-width="1.6"/>
+    <circle cx="236.0" cy="183" r=".9" fill="#b3a796"/><circle cx="236.0" cy="188" r=".9" fill="#b3a796"/><circle cx="236.0" cy="198" r=".9" fill="#b3a796"/><circle cx="236.0" cy="203" r=".9" fill="#b3a796"/><circle cx="242.6" cy="183" r=".9" fill="#b3a796"/><circle cx="242.6" cy="188" r=".9" fill="#b3a796"/><circle cx="242.6" cy="198" r=".9" fill="#b3a796"/><circle cx="242.6" cy="203" r=".9" fill="#b3a796"/><circle cx="249.2" cy="183" r=".9" fill="#b3a796"/><circle cx="249.2" cy="188" r=".9" fill="#b3a796"/><circle cx="249.2" cy="198" r=".9" fill="#b3a796"/><circle cx="249.2" cy="203" r=".9" fill="#b3a796"/><circle cx="255.8" cy="183" r=".9" fill="#b3a796"/><circle cx="255.8" cy="188" r=".9" fill="#b3a796"/><circle cx="255.8" cy="198" r=".9" fill="#b3a796"/><circle cx="255.8" cy="203" r=".9" fill="#b3a796"/><circle cx="262.4" cy="183" r=".9" fill="#b3a796"/><circle cx="262.4" cy="188" r=".9" fill="#b3a796"/><circle cx="262.4" cy="198" r=".9" fill="#b3a796"/><circle cx="262.4" cy="203" r=".9" fill="#b3a796"/><circle cx="269.0" cy="183" r=".9" fill="#b3a796"/><circle cx="269.0" cy="188" r=".9" fill="#b3a796"/><circle cx="269.0" cy="198" r=".9" fill="#b3a796"/><circle cx="269.0" cy="203" r=".9" fill="#b3a796"/><circle cx="275.6" cy="183" r=".9" fill="#b3a796"/><circle cx="275.6" cy="188" r=".9" fill="#b3a796"/><circle cx="275.6" cy="198" r=".9" fill="#b3a796"/><circle cx="275.6" cy="203" r=".9" fill="#b3a796"/><circle cx="282.2" cy="183" r=".9" fill="#b3a796"/><circle cx="282.2" cy="188" r=".9" fill="#b3a796"/><circle cx="282.2" cy="198" r=".9" fill="#b3a796"/><circle cx="282.2" cy="203" r=".9" fill="#b3a796"/><circle cx="288.8" cy="183" r=".9" fill="#b3a796"/><circle cx="288.8" cy="188" r=".9" fill="#b3a796"/><circle cx="288.8" cy="198" r=".9" fill="#b3a796"/><circle cx="288.8" cy="203" r=".9" fill="#b3a796"/><circle cx="295.4" cy="183" r=".9" fill="#b3a796"/><circle cx="295.4" cy="188" r=".9" fill="#b3a796"/><circle cx="295.4" cy="198" r=".9" fill="#b3a796"/><circle cx="295.4" cy="203" r=".9" fill="#b3a796"/><circle cx="302.0" cy="183" r=".9" fill="#b3a796"/><circle cx="302.0" cy="188" r=".9" fill="#b3a796"/><circle cx="302.0" cy="198" r=".9" fill="#b3a796"/><circle cx="302.0" cy="203" r=".9" fill="#b3a796"/><circle cx="308.6" cy="183" r=".9" fill="#b3a796"/><circle cx="308.6" cy="188" r=".9" fill="#b3a796"/><circle cx="308.6" cy="198" r=".9" fill="#b3a796"/><circle cx="308.6" cy="203" r=".9" fill="#b3a796"/><circle cx="315.2" cy="183" r=".9" fill="#b3a796"/><circle cx="315.2" cy="188" r=".9" fill="#b3a796"/><circle cx="315.2" cy="198" r=".9" fill="#b3a796"/><circle cx="315.2" cy="203" r=".9" fill="#b3a796"/><circle cx="321.8" cy="183" r=".9" fill="#b3a796"/><circle cx="321.8" cy="188" r=".9" fill="#b3a796"/><circle cx="321.8" cy="198" r=".9" fill="#b3a796"/><circle cx="321.8" cy="203" r=".9" fill="#b3a796"/><circle cx="328.4" cy="183" r=".9" fill="#b3a796"/><circle cx="328.4" cy="188" r=".9" fill="#b3a796"/><circle cx="328.4" cy="198" r=".9" fill="#b3a796"/><circle cx="328.4" cy="203" r=".9" fill="#b3a796"/><circle cx="335.0" cy="183" r=".9" fill="#b3a796"/><circle cx="335.0" cy="188" r=".9" fill="#b3a796"/><circle cx="335.0" cy="198" r=".9" fill="#b3a796"/><circle cx="335.0" cy="203" r=".9" fill="#b3a796"/><circle cx="341.6" cy="183" r=".9" fill="#b3a796"/><circle cx="341.6" cy="188" r=".9" fill="#b3a796"/><circle cx="341.6" cy="198" r=".9" fill="#b3a796"/><circle cx="341.6" cy="203" r=".9" fill="#b3a796"/><circle cx="348.2" cy="183" r=".9" fill="#b3a796"/><circle cx="348.2" cy="188" r=".9" fill="#b3a796"/><circle cx="348.2" cy="198" r=".9" fill="#b3a796"/><circle cx="348.2" cy="203" r=".9" fill="#b3a796"/><circle cx="354.8" cy="183" r=".9" fill="#b3a796"/><circle cx="354.8" cy="188" r=".9" fill="#b3a796"/><circle cx="354.8" cy="198" r=".9" fill="#b3a796"/><circle cx="354.8" cy="203" r=".9" fill="#b3a796"/><circle cx="361.4" cy="183" r=".9" fill="#b3a796"/><circle cx="361.4" cy="188" r=".9" fill="#b3a796"/><circle cx="361.4" cy="198" r=".9" fill="#b3a796"/><circle cx="361.4" cy="203" r=".9" fill="#b3a796"/><circle cx="368.0" cy="183" r=".9" fill="#b3a796"/><circle cx="368.0" cy="188" r=".9" fill="#b3a796"/><circle cx="368.0" cy="198" r=".9" fill="#b3a796"/><circle cx="368.0" cy="203" r=".9" fill="#b3a796"/>
+    <rect x="282" y="185" width="36" height="15" rx="1.5" fill="#2b2533" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M240,200 C242,168 270,166 278,192" fill="none" stroke="#e8606f" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M322,192 C330,166 356,168 360,200" fill="none" stroke="#6f8fe0" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M250,170 v12 M264,170 v12 M346,170 v12" stroke="#bdb6c9" stroke-width="1.6"/>
+    <g class="led"><circle cx="250" cy="165" r="11" fill="#e8606f" opacity=".3"/><circle cx="250" cy="165" r="5" fill="#e8606f" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></g>
+    <g class="led l2"><circle cx="264" cy="165" r="11" fill="#e9c457" opacity=".3"/><circle cx="264" cy="165" r="5" fill="#e9c457" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></g>
+    <g class="led l3"><circle cx="346" cy="165" r="11" fill="#59c48a" opacity=".3"/><circle cx="346" cy="165" r="5" fill="#59c48a" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/></g>
   </g>
   <g class="bhands">
-    <path d="M216,206 C214,194 228,190 236,196 L238,206 Z" fill="#fde0cc" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M376,170 C392,158 400,170 424,206" fill="none" stroke="#6b6280" stroke-width="2.4"/>
-    <path d="M342,206 L360,170 L376,176 L362,206 Z" fill="#8b6cf0" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M218,207 C216,197 228,193 236,198 L238,207 Z" fill="#f2d8cb" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M376,170 C392,158 400,170 424,206" fill="none" stroke="#2f2a3b" stroke-width="2"/>
+    <path d="M342,207 L358,174 L374,179 L362,207 Z" fill="#e2d5c0" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
     <g class="iron">
-      <path d="M318,190 L334,180" stroke="#c8c2d6" stroke-width="3" stroke-linecap="round"/>
-      <path d="M332,176 L384,154 L389,165 L337,187 Z" fill="#ff8fb1" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M362,166 C362,154 380,150 384,160 C388,170 374,178 366,176 Z" fill="#fde0cc" stroke="#2a1426" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M368,160 C371,164 371,170 368,174" fill="none" stroke="#2a1426" stroke-linejoin="round" stroke-linecap="round" stroke-width="1.6"/>
-      <g class="spark" stroke="#ffd23f" stroke-width="2.4" stroke-linecap="round">
-        <path d="M313,191 l-7,-3 M315,195 l-5,6 M320,195 l3,6 M316,187 l-3,-6"/>
+      <path d="M318,192 L334,182" stroke="#bdb6c9" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M332,178 L384,156 L388,166 L336,188 Z" fill="#c98a9a" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M362,168 C362,156 380,152 384,162 C388,172 374,180 366,178 Z" fill="#f2d8cb" stroke="#2b1f2e" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <g class="spark" stroke="#e9c457" stroke-width="2" stroke-linecap="round">
+        <path d="M313,193 l-7,-3 M315,197 l-5,6 M320,197 l3,6"/>
       </g>
-      <circle class="smoke" cx="318" cy="182" r="3.5" fill="#d8d2e6"/>
-      <circle class="smoke s2" cx="321" cy="182" r="3" fill="#d8d2e6"/>
+      <circle class="smoke" cx="318" cy="184" r="3.2" fill="#d4cde0"/>
+      <circle class="smoke s2" cx="321" cy="184" r="2.8" fill="#d4cde0"/>
     </g>
   </g>
 
+  <!-- subtitle -->
+  <text class="sub" x="300" y="229" text-anchor="middle" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-weight="600" font-size="17" fill="#fff3c2" stroke="#140c1c" stroke-width="3.2" paint-order="stroke" stroke-linejoin="round">Ciao.</text>
+
+  <!-- film: vignette + grain -->
+  <rect width="600" height="240" fill="url(#vig)"/>
+  <rect width="600" height="240" filter="url(#grain)"/>
 </g>
 </svg>
