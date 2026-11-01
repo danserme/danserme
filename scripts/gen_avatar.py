@@ -200,6 +200,9 @@ def board(dx=0, leds=(1, 1, 1)):
 
 def iron(s):
     px = {}
+    # left hand steadying the board
+    rect(px, 47, 33, 49, 34, "top")
+    rect(px, 44, 34, 47, 35, "skin"); dots(px, [(44, 36), (46, 36)], "skin")
     for i in range(4):                                   # sleeve up to the hand
         rect(px, 69 + i, 37 - i + s * (i > 2), 70 + i, 38 - i + s * (i > 2), "top")
     for i in range(8):                                   # grip
