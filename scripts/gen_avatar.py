@@ -43,13 +43,13 @@ CURTAIN = ("M300,54 C284,56 268,58 264,72 C260,92 266,112 260,136 C256,152 250,1
            "L254,186 L264,170 C272,152 272,130 274,112 C276,92 280,74 290,58 C294,50 298,44 300,40 Z")
 CURTAIN_SH = "M290,58 C282,74 278,94 276,112 C274,130 272,150 266,166 C268,146 268,126 270,108 C272,88 278,70 290,58 Z"
 FRONT = ("M300,31 C276,31 257,46 254,74 C250,100 256,124 250,148 C247,160 244,170 240,180 L252,172 "
-         "L250,190 L262,172 C270,150 270,128 272,108 C274,88 281,70 300,57 Z")
-FRONT_SH = "M300,57 C281,70 274,88 272,108 C270,128 270,150 262,172 C264,150 265,128 266,108 C268,86 278,68 300,57 Z"
+         "L250,190 L262,172 C270,150 270,128 272,108 C271,88 278,70 300,63 Z")
+FRONT_SH = "M300,63 C278,70 271,88 272,108 C270,128 270,150 262,172 C264,150 265,128 266,108 C266,86 276,70 300,63 Z"
 SHINE2 = "M260,66 C265,50 278,40 294,36 L290,42 L296,43 C283,47 274,55 270,66 L267,61 L264,70 Z"
 SHINE = "M268,52 L274,46 L277,51 L283,42 L286,47 L292,39 L295,41 L289,49 L285,53 L282,49 L276,56 Z"
 LOCK = ("M262,140 C256,160 258,178 250,196 L246,214 L258,200 C262,206 266,210 271,215 "
         "C268,196 272,176 270,156 Z")
-FACE = "M273,70 C272,96 280,118 296,136 Q300,141 304,136 C320,118 328,96 327,70 C316,58 284,58 273,70 Z"
+FACE = "M272,70 C271,95 277,113 287,124 C292,130 296,133 300,133 C304,133 308,130 313,124 C323,113 329,95 328,70 C316,58 284,58 272,70 Z"
 BODY = "M226,240 C230,188 252,168 288,160 L312,160 C348,168 370,188 374,240 Z"
 
 def eye(cx, side):
@@ -162,7 +162,7 @@ def build():
   <!-- character -->
   <path d="{HAIR_BACK}" fill="{C['hair2']}" {L}/>
   <path d="M291,128 L291,162 L309,162 L309,128 Z" fill="{C['skin']}" {L}/>
-  <path d="M292,132 L308,132 L308,152 C302,147 296,147 292,149 Z" fill="{C['skin2']}"/>
+  <path d="M291,126 L309,126 L309,146 C302,141 296,141 291,143 Z" fill="{C['skin2']}"/>
   <path d="{BODY}" fill="{C['knit']}" {L}/>
   <path d="M336,168 C356,180 366,198 370,240 L344,240 C344,210 342,188 336,168 Z" fill="{C['knit2']}"/>
   <path d="M288,160 C294,171 306,171 312,160 Z" fill="{C['skin']}"/>
@@ -179,7 +179,7 @@ def build():
 
   <g class="head">
     <path d="{FACE}" fill="{C['skin']}" {L}/>
-    <path d="M327,74 C328,98 320,118 304,136 Q301,139 299,138 C312,122 320,104 318,80 Z" fill="{C['skin2']}" opacity=".85"/>
+    <path d="M327,76 C328,98 322,114 312,124 C308,128 304,131 301,132 C310,122 318,108 318,82 Z" fill="{C['skin2']}" opacity=".85"/>
     <path d="{FRONT}" fill="{C['hair']}" {L}/>
     <path d="{mirror(FRONT)}" fill="{C['hair']}" {L}/>
     <path d="{mirror(FRONT)}" fill="{C['hair2']}" opacity=".3"/>
@@ -188,16 +188,16 @@ def build():
     {hair_lines}
     <path d="{SHINE2}" fill="{C['hairhi']}"/>
     <path d="{mirror(SHINE2)}" fill="{C['hairhi']}" opacity=".45"/>
-    <path d="M300,32 L300,56" stroke="{C['line']}" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M300,32 L300,62" stroke="{C['line']}" stroke-width="1.2" stroke-linecap="round"/>
 
     <path d="M276,85 C282,81 290,81 296,83 M324,85 C318,81 310,81 304,83" fill="none" stroke="{C['hair2']}" stroke-width="1.6" stroke-linecap="round"/>
     {eye(287, -1)}
     {eye(313, 1)}
     <path d="M276,115 l3,-4 M280,115 l3,-4 M284,115 l3,-4 M316,115 l3,-4 M320,115 l3,-4 M324,115 l3,-4" stroke="#d98896" stroke-width="1" stroke-linecap="round" opacity=".7"/>
-    <path d="M302,104 L304,115 L300,117" fill="none" stroke="{C['skin2']}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-    <path class="mshut" d="M296,126.5 Q300,127.5 304,126.5" fill="none" stroke="{C['line']}" stroke-width="1.4" stroke-linecap="round"/>
-    <path class="mshut" d="M297.5,128.5 Q300,129.6 302.5,128.5" fill="none" stroke="{C['lip']}" stroke-width="1.4" stroke-linecap="round"/>
-    <path class="mopen" d="M296,126 Q300,125.5 304,126 Q303,131 300,131 Q297,131 296,126 Z" fill="{C['lip']}" {L}/>
+    <path d="M302,104 L303.5,112 L300,113.5" fill="none" stroke="{C['skin2']}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="mshut" d="M296,122.5 Q300,123.5 304,122.5" fill="none" stroke="{C['line']}" stroke-width="1.4" stroke-linecap="round"/>
+    <path class="mshut" d="M297.5,124.5 Q300,125.6 302.5,124.5" fill="none" stroke="{C['lip']}" stroke-width="1.4" stroke-linecap="round"/>
+    <path class="mopen" d="M296,122 Q300,121.5 304,122 Q303,127 300,127 Q297,127 296,122 Z" fill="{C['lip']}" {L}/>
 
     <!-- glasses: thin rectangular frames -->
     <rect x="270" y="89" width="28" height="18" rx="4" fill="{C['lens']}" fill-opacity=".12" stroke="{C['line']}" stroke-width="1.5"/>
