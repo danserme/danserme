@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speak to it · Polina Bobrova</title>
+<meta name="description" content="Talk into your mic and watch it become text. A small demo of the speech work behind vera, murmur and impaired-speech-recog.">
+<style>
+  :root {
+    --bg: #f6f4f0; --card: #ffffff; --fg: #16141c; --muted: #5f5b68; --faint: #dcd7e6;
+    --accent: #7c3aed; --on-accent: #ffffff; --rec: #ef4444; --interim: #9a97a3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b0b0f; --card: #14131a; --fg: #f4f2ee; --muted: #9a97a3; --faint: #2a2733;
+      --accent: #a78bfa; --on-accent: #0b0b0f; --interim: #6c6878;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg); }
+  body { font: 16px/1.55 ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  main { max-width: 900px; margin: 0 auto; padding: 48px 16px 64px; }
+  .kicker { font-size: 13px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; }
+  h1 { font-size: clamp(32px, 6vw, 46px); letter-spacing: -1px; line-height: 1.1; margin: 12px 0 12px; font-weight: 600; }
+  .lead { color: var(--muted); max-width: 60ch; margin: 0 0 32px; }
+
+  .stage { background: var(--card); border: 1px solid var(--faint); border-radius: 18px; padding: 20px 24px 24px; }
+  .bar-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; letter-spacing: 1px; color: var(--muted); }
+  .status { display: inline-flex; align-items: center; gap: 8px; letter-spacing: 2px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); }
+  .live .dot { background: var(--rec); animation: blink 1.2s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .25; } }
+  canvas { display: block; width: 100%; height: 120px; margin: 16px 0 8px; }
+  .transcript { min-height: 4.5em; font-size: clamp(18px, 3vw, 22px); line-height: 1.45; }
+  .transcript .interim { color: var(--interim); }
+  .transcript .hint { color: var(--muted); font-size: 16px; }
+
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; align-items: center; }
+  button, select {
+    font: inherit; font-size: 15px; border-radius: 999px; padding: 10px 18px; cursor: pointer;
+    border: 1px solid var(--faint); background: transparent; color: var(--fg);
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  select { padding-right: 12px; }
+  .note { font-size: 13px; color: var(--muted); margin-top: 14px; }
+
+  h2 { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 48px 0 16px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .card { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--faint); border-radius: 14px; padding: 16px 18px; transition: border-color .15s; }
+  .card:hover { border-color: var(--accent); }
+  .card b { display: block; margin-bottom: 4px; }
+  .card span { color: var(--muted); font-size: 14px; }
+  .card i { display: block; font-style: normal; font-size: 12px; color: var(--accent); margin-top: 10px; }
+  footer { margin-top: 48px; font-size: 14px; color: var(--muted); }
+  footer a { color: var(--fg); }
+  @media (prefers-reduced-motion: reduce) { .live .dot { animation: none; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker mono">Polina Bobrova · speech demo</div>
+  <h1>Speak to it.</h1>
+  <p class="lead">Most of my work is about getting machines to understand people they usually don't: atypical Italian voices, impaired speech, meetings that shouldn't leave your laptop. This page is a small taste of that. Press the button and talk.</p>
+
+  <section class="stage" id="stage" aria-label="Live transcription">
+    <div class="bar-top mono">
+      <span class="status"><span class="dot"></span><span id="status">IDLE</span></span>
+      <span id="engine">—</span>
+    </div>
+    <canvas id="wave" aria-hidden="true"></canvas>
+    <div class="transcript" id="out" aria-live="polite"><span class="hint">Your words will show up here.</span></div>
+    <div class="controls">
+      <button class="primary" id="mic">Start listening</button>
+      <select id="lang" aria-label="Language">
+        <option value="en-US">English</option>
+        <option value="it-IT">Italiano</option>
+      </select>
+      <button id="demo">Play a sample instead</button>
+    </div>
+    <p class="note" id="note">Nothing is recorded or stored by this page. Live transcription uses your browser's built-in speech service, which in some browsers (Chrome, Edge) sends audio to the browser vendor. My own tools, like murmur, run fully on-device.</p>
+  </section>
+
+  <h2>Where this comes from</h2>
+  <div class="cards">
+    <a class="card" href="https://github.com/danserme/vera"><b>vera</b><span>Speech recognition for atypical Italian voices, from patient datasets to an Android app.</span><i class="mono">Kotlin · Python</i></a>
+    <a class="card" href="https://github.com/danserme/impaired-speech-recog"><b>impaired-speech-recog</b><span>Whisper fine-tuned on impaired speech, offline and in real time.</span><i class="mono">Python</i></a>
+    <a class="card" href="https://github.com/danserme/murmur"><b>murmur</b><span>macOS app that transcribes and summarises speech on-device.</span><i class="mono">Swift</i></a>
+  </div>
+
+  <footer>
+    <a href="https://github.com/danserme">← Back to GitHub</a> &nbsp;·&nbsp; <a href="https://polinabobrova.com">polinabobrova.com</a>
+  </footer>
+</main>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const canvas = $('wave'), ctx = canvas.getContext('2d');
+  const out = $('out'), statusEl = $('status'), engineEl = $('engine'), stage = $('stage');
+  const micBtn = $('mic'), demoBtn = $('demo'), langSel = $('lang');
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const BARS = 56;
+
+  let mode = 'idle';           // idle | mic | demo
+  let analyser, audioCtx, stream, data, recog, demoTimer, finalText = '';
+  let levels = new Array(BARS).fill(0);
+
+  engineEl.textContent = SR ? 'browser speech API' : 'waveform only (no speech API here)';
+
+  function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = canvas.clientWidth * dpr;
+    canvas.height = canvas.clientHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  addEventListener('resize', resize); resize();
+
+  // Target levels: from the mic analyser, from the demo generator, or flat.
+  let demoSpeaking = false;
+  function targetLevels() {
+    if (mode === 'mic' && analyser) {
+      analyser.getByteFrequencyData(data);
+      // speech lives mostly in the low bins; spread them symmetrically from the centre
+      const half = BARS / 2, usable = Math.floor(data.length * 0.45);
+      const t = new Array(BARS);
+      for (let i = 0; i < half; i++) {
+        const v = data[Math.floor(i / half * usable)] / 255;
+        t[half - 1 - i] = t[half + i] = Math.pow(v, 1.4);
+      }
+      return t;
+    }
+    if (mode === 'demo' && demoSpeaking) {
+      return levels.map((_, i) => {
+        const env = Math.pow(Math.sin(Math.PI * (i + .5) / BARS), .6);
+        return Math.random() < .12 ? .05 : env * (.25 + Math.random() * .75);
+      });
+    }
+    return levels.map(() => 0);
+  }
+
+  let last = 0;
+  function draw(ts) {
+    const step = mode === 'demo' ? 140 : 0;      // demo bursts read better a little slower
+    if (ts - last >= step) {
+      const t = targetLevels();
+      levels = levels.map((l, i) => l + (t[i] - l) * (mode === 'mic' ? .5 : .65));
+      last = ts;
+    }
+    const w = canvas.clientWidth, h = canvas.clientHeight, gap = w / BARS, bw = Math.max(3, gap * .5);
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = css('--accent');
+    for (let i = 0; i < BARS; i++) {
+      const bh = Math.max(bw, levels[i] * (h - 8));
+      const x = i * gap + (gap - bw) / 2, y = (h - bh) / 2;
+      ctx.beginPath(); ctx.roundRect(x, y, bw, bh, bw / 2); ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  function setStatus(text, live) { statusEl.textContent = text; stage.classList.toggle('live', !!live); }
+  function render(finalPart, interim) {
+    out.textContent = '';
+    if (!finalPart && !interim) { out.innerHTML = '<span class="hint">Listening… say something.</span>'; return; }
+    out.append(document.createTextNode(finalPart));
+    if (interim) { const s = document.createElement('span'); s.className = 'interim'; s.textContent = interim; out.append(s); }
+  }
+
+  async function startMic() {
+    stopAll();
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (e) {
+      setStatus('MIC BLOCKED');
+      out.innerHTML = '<span class="hint">I couldn\'t get microphone access. Try “Play a sample instead”.</span>';
+      return;
+    }
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 512; analyser.smoothingTimeConstant = .6;
+    data = new Uint8Array(analyser.frequencyBinCount);
+    audioCtx.createMediaStreamSource(stream).connect(analyser);
+    mode = 'mic'; finalText = '';
+    setStatus('LISTENING', true);
+    micBtn.textContent = 'Stop';
+    render('', '');
+
+    if (!SR) {
+      out.innerHTML = '<span class="hint">Your browser shows the waveform but has no built-in speech recognition. Try Chrome, Edge or Safari for the transcript.</span>';
+      return;
+    }
+    recog = new SR();
+    recog.lang = langSel.value; recog.continuous = true; recog.interimResults = true;
+    recog.onresult = e => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const r = e.results[i];
+        if (r.isFinal) finalText += r[0].transcript.trim() + ' ';
+        else interim += r[0].transcript;
+      }
+      render(finalText, interim);
+    };
+    recog.onerror = e => { if (e.error === 'not-allowed' || e.error === 'service-not-allowed') engineEl.textContent = 'speech API blocked'; };
+    recog.onend = () => { if (mode === 'mic') { try { recog.start(); } catch (_) {} } };   // keep going through pauses
+    try { recog.start(); } catch (_) {}
+  }
+
+  const samples = {
+    'en-US': [
+      ['vera · atypical speech', 'Good morning, I would like to book an appointment.'],
+      ['murmur · on-device', "Okay, let's recap what we decided today."],
+      ['whisper fine-tuned · offline', 'Can you turn the lights on in the kitchen?'],
+    ],
+    'it-IT': [
+      ['vera · parlato atipico', 'Buongiorno, vorrei prenotare una visita.'],
+      ['murmur · sul dispositivo', 'Ok, riassumiamo cosa abbiamo deciso oggi.'],
+      ['whisper fine-tuned · offline', 'Puoi accendere la luce in cucina?'],
+    ],
+  };
+
+  function startDemo() {
+    stopAll();
+    mode = 'demo';
+    demoBtn.textContent = 'Stop sample';
+    const list = samples[langSel.value];
+    let n = 0;
+    const play = () => {
+      const [tag, text] = list[n % list.length]; n++;
+      engineEl.textContent = tag;
+      setStatus('SAMPLE', true);
+      const words = text.split(' ');
+      let k = 0; demoSpeaking = true;
+      render('', '');
+      const tick = () => {
+        if (mode !== 'demo') return;
+        k++;
+        // a couple of words arrive as "interim" before being confirmed, like a real recogniser
+        render(words.slice(0, Math.max(0, k - 2)).join(' ') + ' ', words.slice(Math.max(0, k - 2), k).join(' '));
+        if (k < words.length) demoTimer = setTimeout(tick, reduceMotion ? 120 : 260 + Math.random() * 220);
+        else {
+          demoTimer = setTimeout(() => { demoSpeaking = false; render(text, ''); demoTimer = setTimeout(play, 2200); }, 450);
+        }
+      };
+      demoTimer = setTimeout(tick, 300);
+    };
+    play();
+  }
+
+  function stopAll() {
+    const wasMode = mode;
+    mode = 'idle'; demoSpeaking = false;
+    clearTimeout(demoTimer);
+    if (recog) { recog.onend = null; try { recog.stop(); } catch (_) {} recog = null; }
+    if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+    if (audioCtx) { audioCtx.close(); audioCtx = null; analyser = null; }
+    micBtn.textContent = 'Start listening';
+    demoBtn.textContent = 'Play a sample instead';
+    engineEl.textContent = SR ? 'browser speech API' : 'waveform only (no speech API here)';
+    setStatus('IDLE');
+    return wasMode;
+  }
+
+  micBtn.onclick = () => mode === 'mic' ? stopAll() : startMic();
+  demoBtn.onclick = () => mode === 'demo' ? stopAll() : startDemo();
+  langSel.onchange = () => { const m = mode; if (m === 'mic') startMic(); else if (m === 'demo') startDemo(); };
+})();
+</script>
+</body>
+</html>

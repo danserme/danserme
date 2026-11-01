@@ -12,6 +12,17 @@ I'm a PhD researcher in HCI at **Politecnico di Milano** and a design engineer a
 
 <br>
 
+<a href="https://danserme.github.io/danserme/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="./voice.svg">
+    <source media="(prefers-color-scheme: light)" srcset="./voice-light.svg">
+    <img src="./voice.svg" alt="Animated live transcript: a voice waveform turning into text, cycling through my speech projects. Click to try it with your own voice." width="100%">
+  </picture>
+</a>
+<p align="center"><sub>↑ Click it to talk to it. Live transcription in your browser, English or Italian.</sub></p>
+
+<br>
+
 ## Projects
 
 <table>
