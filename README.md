@@ -8,7 +8,8 @@
 
 <br>
 
-I'm an HCI researcher at **Politecnico di Milano** and a design engineer at **Elysia Solutions**. Most of my work is speech AI for people with atypical voices and health devices that keep data in the user's hands. I study a problem, build something for it, then test it with real people. Seven years in, 10+ peer-reviewed papers.
+I study how people understand emerging tech — then design and build products for them.<br>
+7 years across web3, healthcare, e‑commerce and finance, from peer‑reviewed HCI research to shipped AI interfaces, hardware and brand.
 
 <br>
 
@@ -21,61 +22,48 @@ I'm an HCI researcher at **Politecnico di Milano** and a design engineer at **El
 ## Projects
 
 <table>
+<tr><td colspan="3"><sub><b>RESEARCH</b> — built to study how people use a technology</sub></td></tr>
 <tr>
-<td width="50%" valign="top">
-
-**Speech & voice**
-
-[**vera**](https://github.com/danserme/vera) + [api](https://github.com/danserme/vera-api)<br>
-Speech recognition for atypical Italian voices. Patient datasets, model training, cloud inference, Android app.<br>
-<sub>`Kotlin` `Python`</sub>
-
-[**impaired-speech-recog**](https://github.com/danserme/impaired-speech-recog)<br>
-Whisper fine-tuned on impaired speech. Runs offline, in real time.<br>
-<sub>`Python`</sub>
-
-[**murmur**](https://github.com/danserme/murmur)<br>
-macOS app that transcribes and summarises speech on-device.<br>
-<sub>`Swift`</sub>
-
-</td>
-<td width="50%" valign="top">
-
-**Health & hardware**
-
-[**cipher.pal**](https://github.com/danserme/cipher.pal) + [device](https://github.com/danserme/cipher.pal-device)<br>
-A fidget device for stress, with encrypted health data the user owns.<br>
-<sub>`JavaScript` `C++`</sub>
-
-[**AI-musicGen-glove**](https://github.com/danserme/AI-musicGen-glove)<br>
-Fabric bend-sensor glove. Gestures become sound in Pure Data.<br>
-<sub>`C++`</sub>
-
-</td>
+<td width="26%"><a href="https://github.com/danserme/vera"><b>vera</b></a> · <a href="https://github.com/danserme/vera-api">api</a></td>
+<td>Speech recognition for atypical Italian voices: patient datasets, model training, cloud inference, Android app.</td>
+<td width="16%"><sub>Kotlin · Python</sub></td>
 </tr>
 <tr>
-<td width="50%" valign="top">
-
-**Tools**
-
-[**plotline**](https://github.com/danserme/plotline)<br>
-Project planning on a canvas instead of a checklist. Live collaboration, dependencies, timelines.<br>
-<sub>`TypeScript`</sub>
-
-</td>
-<td width="50%" valign="top">
-
-**Play**
-
-[**rhythm-game**](https://github.com/danserme/rhythm-game)<br>
-Drop in any song, get a beatmap. Pygame + librosa.<br>
-<sub>`Python`</sub>
-
-[**perceptron**](https://github.com/danserme/perceptron)<br>
-A single-layer perceptron you can watch learn.<br>
-<sub>`Processing`</sub>
-
-</td>
+<td><a href="https://github.com/danserme/impaired-speech-recog"><b>impaired-speech-recog</b></a></td>
+<td>Whisper fine-tuned on impaired speech, running offline in real time.</td>
+<td><sub>Python</sub></td>
+</tr>
+<tr>
+<td><a href="https://github.com/danserme/cipher.pal"><b>cipher.pal</b></a> · <a href="https://github.com/danserme/cipher.pal-device">device</a></td>
+<td>A fidget device for stress, with encrypted health data the user owns.</td>
+<td><sub>JavaScript · C++</sub></td>
+</tr>
+<tr><td colspan="3"><sub><b>APPS &amp; TOOLS</b></sub></td></tr>
+<tr>
+<td><a href="https://github.com/danserme/murmur"><b>murmur</b></a></td>
+<td>macOS app that transcribes and summarises speech on-device.</td>
+<td><sub>Swift</sub></td>
+</tr>
+<tr>
+<td><a href="https://github.com/danserme/plotline"><b>plotline</b></a></td>
+<td>Project planning on a canvas instead of a checklist, with live collaboration, dependencies and timelines.</td>
+<td><sub>TypeScript</sub></td>
+</tr>
+<tr><td colspan="3"><sub><b>EXPERIMENTS</b></sub></td></tr>
+<tr>
+<td><a href="https://github.com/danserme/AI-musicGen-glove"><b>AI-musicGen-glove</b></a></td>
+<td>Fabric bend-sensor glove whose gestures drive sound synthesis in Pure Data.</td>
+<td><sub>C++</sub></td>
+</tr>
+<tr>
+<td><a href="https://github.com/danserme/rhythm-game"><b>rhythm-game</b></a></td>
+<td>Drop in any song and get a beatmap, generated with librosa.</td>
+<td><sub>Python</sub></td>
+</tr>
+<tr>
+<td><a href="https://github.com/danserme/perceptron"><b>perceptron</b></a></td>
+<td>A single-layer perceptron you can watch learn.</td>
+<td><sub>Processing</sub></td>
 </tr>
 </table>
 
