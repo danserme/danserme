@@ -1,6 +1,6 @@
 # Regenerates avatar.svg: pixel-art Polina at her desk, switching between a laptop
 # and a breadboard, with a bookshelf of her project objects and notes on the wall.
-#   python3 scripts/gen_avatar.py .   (writes header-v2.svg; rename the file if GitHub keeps serving a cached copy)
+#   python3 scripts/gen_avatar.py .   (writes header-v3.svg; rename the file if GitHub keeps serving a cached copy)
 #
 # 120x48 pixel grid scaled 5x. A static layer holds the room and the character;
 # each moving part is a small layer with its own frames, shown and hidden on a
@@ -319,7 +319,7 @@ def build():
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{GW*SCALE}" height="{GH*SCALE}" viewBox="0 0 {GW} {GH}" shape-rendering="crispEdges" role="img" aria-label="Polina Bobrova, HCI Researcher and Design Engineer, based in Milan. Pixel-art scene of her at her desk, switching between typing on a laptop and soldering a breadboard with blinking LEDs. A bookshelf holds her mic, sensor glove, cipher.pal and headphones. She says ciao.">
 <style>.d{{opacity:0}}{"".join(css)}
 @media (prefers-reduced-motion:reduce){{.d{{animation:none!important;opacity:0}}.f0{{opacity:1}}}}</style>
-<defs><clipPath id="card"><rect width="{GW}" height="{GH}" rx="3"/></clipPath></defs>
+<defs><clipPath id="card"><rect width="{GW}" height="{GH}"/></clipPath></defs>
 <g clip-path="url(#card)">
 {runs(room())}
 {runs(her())}
@@ -335,4 +335,4 @@ def build():
 </svg>
 '''
 
-open(f"{sys.argv[1]}/header-v2.svg", "w").write(build())
+open(f"{sys.argv[1]}/header-v3.svg", "w").write(build())
