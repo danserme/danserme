@@ -1,6 +1,6 @@
 # Regenerates avatar.svg: pixel-art Polina at her desk, switching between a laptop
 # and a breadboard, with a bookshelf of her project objects and notes on the wall.
-#   python3 scripts/gen_avatar.py .   (writes header.svg; rename the file if GitHub keeps serving a cached copy)
+#   python3 scripts/gen_avatar.py .   (writes header-v2.svg; rename the file if GitHub keeps serving a cached copy)
 #
 # 120x48 pixel grid scaled 5x. A static layer holds the room and the character;
 # each moving part is a small layer with its own frames, shown and hidden on a
@@ -8,8 +8,8 @@
 import sys
 from collections import OrderedDict
 
-GW, GH, SCALE = 200, 48, 5   # whole header
-SW, DX = 120, 80             # the scene is 120px wide, drawn 80px in from the left (text sits there)
+GW, GH, SCALE = 206, 48, 5   # whole header
+SW, DX = 120, 86             # the scene is 120px wide, drawn 80px in from the left (text sits there)
 SLOTS, T = 60, 12.0
 
 P = dict(
@@ -88,11 +88,11 @@ def room():
             rect(px, x, 39 - h + 1, x + w - 1, 39, c)
         x += w
     # notes on the right wall
-    rect(px, 90, 7, 105, 18, "paper")
-    poly(px, [(91, 13), (93, 13), (94, 10), (95, 16), (96, 9), (97, 17), (98, 11), (99, 14), (100, 12), (101, 13), (104, 13)], "wave")
-    dots(px, [(97, 7)], "pin")
-    rect(px, 108, 10, 113, 15, "sticky"); rect(px, 109, 12, 112, 12, "stickyln"); rect(px, 109, 14, 111, 14, "stickyln")
-    rect(px, 96, 22, 104, 27, "card"); rect(px, 97, 24, 103, 24, "cardln"); rect(px, 97, 26, 101, 26, "cardln")
+    rect(px, 92, 8, 107, 19, "paper")
+    poly(px, [(93, 14), (95, 14), (96, 11), (97, 17), (98, 10), (99, 18), (100, 12), (101, 15), (102, 13), (103, 14), (106, 14)], "wave")
+    dots(px, [(99, 8)], "pin")
+    rect(px, 109, 12, 114, 17, "sticky"); rect(px, 110, 14, 113, 14, "stickyln"); rect(px, 110, 16, 112, 16, "stickyln")
+    rect(px, 95, 23, 104, 28, "card"); rect(px, 96, 25, 103, 25, "cardln"); rect(px, 96, 27, 101, 27, "cardln")
     return px
 
 # ------------------------------------------------------------------- her
@@ -231,17 +231,17 @@ FONT = {
 }
 def bubble():
     px = {}
-    rect(px, 72, 3, 89, 10, "bubble")
-    for p in ((72, 3), (89, 3), (72, 10), (89, 10)):
+    rect(px, 71, 2, 86, 9, "bubble")
+    for p in ((71, 2), (86, 2), (71, 9), (86, 9)):
         px.pop(p)
-    dots(px, [(72, 11), (71, 12)], "bubble")
-    x = 74
+    dots(px, [(72, 10), (71, 11)], "bubble")
+    x = 72
     for ch in "ciao":
         g = FONT[ch]
         for yy, row in enumerate(g):
             for xx, v in enumerate(row):
                 if v == "#":
-                    px[(x + xx, 4 + yy)] = "bubtext"
+                    px[(x + xx, 3 + yy)] = "bubtext"
         x += len(g[0]) + 1
     return px
 
@@ -327,12 +327,12 @@ def build():
 {runs(desk())}
 {front}
 <g shape-rendering="auto">
-  <text x="8" y="15.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="2.9" font-weight="500" letter-spacing=".55" fill="#a78bfa">HCI RESEARCHER · DESIGN ENGINEER</text>
-  <text x="7.6" y="27" font-family="ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9.2" font-weight="600" letter-spacing="-.2" fill="#f4f2ee">Polina Bobrova</text>
-  <text x="8" y="34" font-family="ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="3.4" fill="#b3aec0">Based in Milan.</text>
+  <text x="9.2" y="14.4" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="2.9" font-weight="500" letter-spacing=".55" fill="#a78bfa">HCI RESEARCHER · DESIGN ENGINEER</text>
+  <text x="8.8" y="25.6" font-family="ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9.2" font-weight="600" letter-spacing="-.2" fill="#f4f2ee">Polina Bobrova</text>
+  <text x="9.2" y="32.4" font-family="ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="3.4" fill="#b3aec0">Based in Milan.</text>
 </g>
 </g>
 </svg>
 '''
 
-open(f"{sys.argv[1]}/header.svg", "w").write(build())
+open(f"{sys.argv[1]}/header-v2.svg", "w").write(build())

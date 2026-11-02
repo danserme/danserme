@@ -1,4 +1,4 @@
-<a href="https://polinabobrova.com"><img src="./header.svg" alt="Polina Bobrova, HCI Researcher and Design Engineer. Pixel-art me at my desk, switching between coding on a laptop and soldering a breadboard." width="100%"></a>
+<a href="https://polinabobrova.com"><img src="./header-v2.svg" alt="Polina Bobrova, HCI Researcher and Design Engineer. Pixel-art me at my desk, switching between coding on a laptop and soldering a breadboard." width="100%"></a>
 
 <br>
 
