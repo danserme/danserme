@@ -1,6 +1,6 @@
 # Regenerates avatar.svg: pixel-art Polina at her desk, switching between a laptop
 # and a breadboard, with a bookshelf of her project objects and notes on the wall.
-#   python3 scripts/gen_avatar.py .   (writes avatar-pixel.svg; rename the file if GitHub keeps serving a cached copy)
+#   python3 scripts/gen_avatar.py .   (writes header.svg; rename the file if GitHub keeps serving a cached copy)
 #
 # 120x48 pixel grid scaled 5x. A static layer holds the room and the character;
 # each moving part is a small layer with its own frames, shown and hidden on a
@@ -8,7 +8,8 @@
 import sys
 from collections import OrderedDict
 
-GW, GH, SCALE = 120, 48, 5
+GW, GH, SCALE = 200, 48, 5   # whole header
+SW, DX = 120, 80             # the scene is 120px wide, drawn 80px in from the left (text sits there)
 SLOTS, T = 60, 12.0
 
 P = dict(
@@ -54,8 +55,8 @@ def poly(px, pts, col):
 # ------------------------------------------------------------------- room
 def room():
     px = {}
-    rect(px, 0, 0, GW - 1, GH - 1, "wall")
-    rect(px, 0, 0, GW - 1, 1, "wall2")
+    rect(px, -DX, 0, SW - 1, GH - 1, "wall")
+    rect(px, -DX, 0, SW - 1, 1, "wall2")
     for i in range(0, 14):                          # soft window light on the wall
         rect(px, 40 + i, 2 + i * 2, 47 + i, 3 + i * 2, "wallhi")
     # bookshelf
@@ -275,15 +276,16 @@ def scene(slot):
 
 def desk():
     px = {}
-    rect(px, 0, 42, GW - 1, GH - 1, "desk")
-    rect(px, 0, 42, GW - 1, 42, "deskhi")
-    rect(px, 0, 45, GW - 1, 45, "deskline")
+    rect(px, -DX, 42, SW - 1, GH - 1, "desk")
+    rect(px, -DX, 42, SW - 1, 42, "deskhi")
+    rect(px, -DX, 45, SW - 1, 45, "deskline")
     return px
 
 # -------------------------------------------------------------------- render
 def runs(px):
     out, rows = [], {}
     for (x, y), col in px.items():
+        x += DX
         if 0 <= x < GW and 0 <= y < GH:
             rows.setdefault(y, {})[x] = col
     for y in sorted(rows):
@@ -314,7 +316,7 @@ def build():
     order = ["eyes", "mouth", "board", "laptop", "hands", "iron", "spark", "smoke", "bubble"]
     face = "".join("".join(layers.get(k, [])) for k in order[:2])
     front = "".join("".join(layers.get(k, [])) for k in order[2:])
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{GW*SCALE}" height="{GH*SCALE}" viewBox="0 0 {GW} {GH}" shape-rendering="crispEdges" role="img" aria-label="Pixel-art Polina at her desk, switching between typing on a laptop and soldering a breadboard with blinking LEDs. A bookshelf holds her mic, sensor glove, cipher.pal and headphones. She says ciao.">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{GW*SCALE}" height="{GH*SCALE}" viewBox="0 0 {GW} {GH}" shape-rendering="crispEdges" role="img" aria-label="Polina Bobrova, HCI Researcher and Design Engineer, based in Milan. Pixel-art scene of her at her desk, switching between typing on a laptop and soldering a breadboard with blinking LEDs. A bookshelf holds her mic, sensor glove, cipher.pal and headphones. She says ciao.">
 <style>.d{{opacity:0}}{"".join(css)}
 @media (prefers-reduced-motion:reduce){{.d{{animation:none!important;opacity:0}}.f0{{opacity:1}}}}</style>
 <defs><clipPath id="card"><rect width="{GW}" height="{GH}" rx="3"/></clipPath></defs>
@@ -324,8 +326,13 @@ def build():
 {face}
 {runs(desk())}
 {front}
+<g shape-rendering="auto">
+  <text x="8" y="15.5" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="2.9" font-weight="500" letter-spacing=".55" fill="#a78bfa">HCI RESEARCHER · DESIGN ENGINEER</text>
+  <text x="7.6" y="27" font-family="ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="9.2" font-weight="600" letter-spacing="-.2" fill="#f4f2ee">Polina Bobrova</text>
+  <text x="8" y="34" font-family="ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="3.4" fill="#b3aec0">Based in Milan.</text>
+</g>
 </g>
 </svg>
 '''
 
-open(f"{sys.argv[1]}/avatar-pixel.svg", "w").write(build())
+open(f"{sys.argv[1]}/header.svg", "w").write(build())

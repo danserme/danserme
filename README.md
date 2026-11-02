@@ -1,19 +1,9 @@
-<a href="https://polinabobrova.com">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./banner.svg">
-    <source media="(prefers-color-scheme: light)" srcset="./banner-light.svg">
-    <img src="./banner.svg" alt="Polina Bobrova, HCI Researcher and Design Engineer" width="100%">
-  </picture>
-</a>
+<a href="https://polinabobrova.com"><img src="./header.svg" alt="Polina Bobrova, HCI Researcher and Design Engineer. Pixel-art me at my desk, switching between coding on a laptop and soldering a breadboard." width="100%"></a>
 
 <br>
 
 I study how people understand emerging tech — then design and build products for them.<br>
 7 years across web3, healthcare, e‑commerce and finance, from peer‑reviewed HCI research to shipped AI interfaces, hardware and brand.
-
-<br>
-
-<img src="./avatar-pixel.svg" alt="Pixel-art me at my desk, switching between coding on a laptop and soldering a breadboard." width="100%">
 
 <br>
 
